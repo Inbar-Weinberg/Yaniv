@@ -1,4 +1,4 @@
-class Pile {
+class Pile extends Deck{
   constructor() {
     super();
     this.lastAddedIsSequence = false;

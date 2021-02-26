@@ -1,6 +1,13 @@
 class Game {
+  /**
+   * 
+   * @param {String[]} names An array of player names
+   * @param {Number} minimumForYaniv The minimum score a player can call Yaniv. default is 7.
+   * @param {Number} maxPointForPlayer The maximum point before a player is removed from the game.
+   * @param {Number} cardsAtStart The amount of cards each player receives in the beginning of each round.
+   */
   constructor(
-    names, // an array of strings
+    names, 
     minimumForYaniv = 7,
     maxPointForPlayer = 200,
     cardsAtStart = 5
@@ -11,11 +18,16 @@ class Game {
     this.players = []; // array of Player
     for (let i = 0; i < names.length; i++) {
       if (names[i]) {
-        this.players[i] = new Player(names[i]);
+        this.players.push(new Player(names[i]));
       }
     }
     this.numberOfPlayers = this.players.length;
   }
+
+  updateNumberOfPlayers(){
+    this.numberOfPlayers = this.players.length;
+  }
+  
   updateScores(...scores) {
     for (let i = 0; i < this.numOfPlayers; i++) {
       this.players[i].score += scores[i];

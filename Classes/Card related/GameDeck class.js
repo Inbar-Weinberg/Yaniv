@@ -1,4 +1,4 @@
-class GameDeck {
+class GameDeck extends Deck{
   constructor() {
     super();
     const suits = ["spades", "diamonds", "clubs", "hearts"];
