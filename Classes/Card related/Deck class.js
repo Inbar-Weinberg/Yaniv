@@ -25,11 +25,10 @@ class Deck {
    */
   remove(cards) {
     let removed = [];
-    if (cards.length === 0 || this.numOfCards === 0) return;
-    if (typeof cards === "string")
-    for (let i = 0; i < cards.length; i++) {
-      if (typeof cards[i] === "string") {
-        const location = string.toLowerCase(cards[0]);
+    if (this.numOfCards === 0) return removed;
+    Input_Is_String: {
+      if (typeof cards === "string") {
+        const location = string.toLowerCase(cards);
         switch (location) {
           case "top":
             removed.push(this.cards.pop());
@@ -40,21 +39,31 @@ class Deck {
           case "all but top":
             removed = this.cards;
             this.cards = removed.pop;
-            this.numOfCards = 1;
-            return removed;
             break;
         }
+        this.numOfCards = this.cards.length;
+        return removed;
       }
-
-      if (cards[i] instanceof Card) {
-        const index = this.cards.indexOf(cards[i]);
-        if (index > 0) {
-          removed.push(this.cards.splice(index, 1));
+    }
+    Input_Is_Single_Card: {
+      if (cards instanceof Card) removeSingleCard(cards);
+    }
+    Input_Is_An_Array_Of_Cards: {
+      if (cards instanceof Array) {
+        for (let i = 0; i < cards.length; i++) {
+          removeSingleCard(cards[i]);
         }
       }
     }
     this.numOfCards = this.cards.length;
     return removed;
+    
+    function removeSingleCard(card) {
+      const index = this.cards.indexOf(card);
+      if (index >= 0) {
+        removed.push(this.cards.splice(index, 1));
+      }
+    }
   }
 
   add(location, ...cards) {
