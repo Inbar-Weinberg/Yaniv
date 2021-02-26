@@ -4,6 +4,9 @@ class Deck {
     this.cards = [];
     this.numOfCards = this.cards.length;
   }
+  /**
+   * @description Shuffles the deck at random.
+   */
   shuffle() {
     for (let i = 0; i < this.cards.length; i++) {
       swapAtRandom(i);
@@ -16,12 +19,11 @@ class Deck {
       this.cards[i] = temp;
     }
   }
-  /*
-   * removes cards from deck accepts one of:
-   * single string:"top","bottom","all but top"
-   * single card
-   * an array of cards
-   * return the removed cards, in an array
+
+  /**
+   * @description Removes cards from 'this' deck.
+   * @param {String|Card[]|Card} cards - One of: single string:"top","bottom","all but top", single Card, an array of Cards.
+   * @returns {Card[]} An array of the removed cards.
    */
   remove(cards) {
     let removed = [];
@@ -57,7 +59,7 @@ class Deck {
     }
     this.numOfCards = this.cards.length;
     return removed;
-    
+
     function removeSingleCard(card) {
       const index = this.cards.indexOf(card);
       if (index >= 0) {
@@ -66,22 +68,41 @@ class Deck {
     }
   }
 
-  add(location, ...cards) {
-    if (cards.length === 0) return;
-    location =
-      typeof location === "string" ? string.toLowerCase(location) : "top";
-    for (let card of cards) {
-      if (card instanceof Card) {
-        switch (location) {
-          case "top":
-            this.cards.push(card);
-            break;
-          case "bottom":
-            this.cards.unshift(card);
-            break;
-          default:
-            this.cards.push(card);
+  /**
+   * @description Adds cards to 'this' deck
+   * @param {String} location - Where to add cards, top or bottom.
+   * @param {Card[] | Card} cards - The cards to add to the deck.
+   * @return {Number} The new number of cards in the deck.
+   */
+  add(location, cards) {
+    Validate_location: {
+      location =
+        typeof location === "string" ? string.toLowerCase(location) : "top";
+    }
+    Input_Is_Single_Card: {
+      if (cards instanceof Card) {
+        addCard(card);
+      }
+    }
+    Input_Is_An_Array_Of_Cards: {
+      if (cards instanceof Array) {
+        if (cards.length === 0) return;
+        for (let card of cards) {
+          if (card instanceof Card) {
+            //Validate o
+            addCard(card);
+          }
         }
+      }
+    }
+    function addCard(card) {
+      switch (location) {
+        case "bottom":
+          this.cards.unshift(card);
+          break;
+        default:
+          // same as case"top"
+          this.cards.push(card);
       }
     }
     this.numOfCards = this.cards.length;
