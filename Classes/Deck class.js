@@ -18,7 +18,7 @@ class Deck {
   }
   /*
    * removes cards from deck accepts the strings:"top","bottom","all but top" or any cards in the deck
-   * return the removed cards, in array if more then 1 else as a card.
+   * return the removed cards, in an array
    */
   remove(...cards) {
     let removed = [];
@@ -45,7 +45,6 @@ class Deck {
         if (index > 0) removed.push(this.cards.splice(index, 1));
       }
       this.numOfCards = this.cards.length;
-      if (removed.length === 1) return removed[0];
       return removed;
     }
   }
@@ -54,7 +53,7 @@ class Deck {
     if (cards.length === 0) return;
     location =
       typeof location === "string" ? string.toLowerCase(location) : "top";
-      for (let card of cards) {
+    for (let card of cards) {
       if (card instanceof Card) {
         switch (location) {
           case "top":
@@ -63,6 +62,8 @@ class Deck {
           case "bottom":
             this.cards.unshift(card);
             break;
+          default:
+            this.cards.push(card);
         }
       }
     }
