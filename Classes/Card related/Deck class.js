@@ -43,7 +43,7 @@ class Deck {
             this.cards = removed.pop;
             break;
         }
-        this.numOfCards = this.cards.length;
+        this.updateNumOfCards();
         return removed;
       }
     }
@@ -57,7 +57,8 @@ class Deck {
         }
       }
     }
-    this.numOfCards = this.cards.length;
+    this.updateNumOfCards();
+    
     return removed;
 
     function removeSingleCard(card) {
@@ -105,7 +106,11 @@ class Deck {
           this.cards.push(card);
       }
     }
-    this.numOfCards = this.cards.length;
+    this.updateNumOfCards();
     return this.numOfCards;
+  }
+  
+  updateNumOfCards() {
+    this.numOfCards = this.cards.length;
   }
 }

@@ -2,7 +2,7 @@ class GameDeck {
   constructor() {
     super();
     const suits = ["spades", "diamonds", "clubs", "hearts"];
-    const values = [
+    const ranks = [
       "A",
       "2",
       "3",
@@ -18,12 +18,12 @@ class GameDeck {
       "K",
     ];
     for (let suit of suits) {
-        for (let value of values){
-            this.cards.push(new Card(suit,value));
+        for (let rank of ranks){
+            this.cards.push(new Card(rank,suit));
         }
     }
+    this.cards.push(new Card(0,0,true));//add two Joker Card
     this.cards.push(new Card(0,0,true));
-    this.cards.push(new Card(0,0,true));
-    this.numOfCards = this.cards.length;
+    super.updateNumOfCards();
   }
 }
