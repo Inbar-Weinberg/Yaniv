@@ -17,12 +17,17 @@ class Deck {
     }
   }
   /*
-   * removes cards from deck accepts the strings:"top","bottom","all but top" or any cards in the deck
+   * removes cards from deck accepts one of:
+   * single string:"top","bottom","all but top"
+   * single card
+   * an array of cards
    * return the removed cards, in an array
    */
-  remove(...cards) {
+  remove(cards) {
     let removed = [];
     if (cards.length === 0 || this.numOfCards === 0) return;
+    if (typeof cards === "string")
+    
     for (let i = 0; i < cards.length; i++) {
       if (typeof cards[i] === "string") {
         const location = string.toLowerCase(cards[0]);
@@ -36,17 +41,21 @@ class Deck {
           case "all but top":
             removed = this.cards;
             this.cards = removed.pop;
+            this.numOfCards = 1;
+            return removed;
             break;
         }
       }
 
       if (cards[i] instanceof Card) {
         const index = this.cards.indexOf(cards[i]);
-        if (index > 0) removed.push(this.cards.splice(index, 1));
+        if (index > 0) {
+          removed.push(this.cards.splice(index, 1));
+        }
       }
-      this.numOfCards = this.cards.length;
-      return removed;
     }
+    this.numOfCards = this.cards.length;
+    return removed;
   }
 
   add(location, ...cards) {
