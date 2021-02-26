@@ -27,7 +27,6 @@ class Deck {
     let removed = [];
     if (cards.length === 0 || this.numOfCards === 0) return;
     if (typeof cards === "string")
-    
     for (let i = 0; i < cards.length; i++) {
       if (typeof cards[i] === "string") {
         const location = string.toLowerCase(cards[0]);
