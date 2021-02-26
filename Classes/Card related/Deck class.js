@@ -96,6 +96,9 @@ class Deck {
         }
       }
     }
+    this.updateNumOfCards();
+    return this.numOfCards;
+
     function addCard(card) {
       switch (location) {
         case "bottom":
@@ -106,10 +109,8 @@ class Deck {
           this.cards.push(card);
       }
     }
-    this.updateNumOfCards();
-    return this.numOfCards;
   }
-  
+
   updateNumOfCards() {
     this.numOfCards = this.cards.length;
   }
