@@ -1,8 +1,9 @@
-class Deck {
+import Card from './Card.js'
+export default class Deck {
   constructor() {
     // deck top is last index of the cards array - more efficient
     this.cards = [];
-    this.numOfCards = this.cards.length;
+    this.numberOfCards = this.cards.length;
   }
   /**
    * @description Shuffles the deck at random.
@@ -27,7 +28,7 @@ class Deck {
    */
   remove(cards) {
     let removed = [];
-    if (this.numOfCards === 0) return removed;
+    if (this.numberOfCards === 0) return removed;
     Input_Is_String: {
       if (typeof cards === "string") {
         const location = string.toLowerCase(cards);
@@ -43,7 +44,7 @@ class Deck {
             this.cards = removed.pop;
             break;
         }
-        this.updateNumOfCards();
+        this.updateNumberOfCards();
         return removed;
       }
     }
@@ -57,8 +58,8 @@ class Deck {
         }
       }
     }
-    this.updateNumOfCards();
-    
+    this.updateNumberOfCards();
+
     return removed;
 
     function removeSingleCard(card) {
@@ -96,8 +97,8 @@ class Deck {
         }
       }
     }
-    this.updateNumOfCards();
-    return this.numOfCards;
+    this.updateNumberOfCards();
+    return this.numberOfCards;
 
     function addCard(card) {
       switch (location) {
@@ -111,7 +112,7 @@ class Deck {
     }
   }
 
-  updateNumOfCards() {
-    this.numOfCards = this.cards.length;
+  updateNumberOfCards() {
+    this.numberOfCards = this.cards.length;
   }
 }

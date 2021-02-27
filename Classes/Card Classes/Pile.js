@@ -1,9 +1,12 @@
-class Pile extends Deck{
+import Deck from "./Deck.js";
+import Card from './Card.js'
+
+export default class Pile extends Deck {
   constructor() {
     super();
     this.lastAddedIsSequence = false;
     this.firstCardOfSequence = undefined;
-    this.topCard = this.cards[this.numOfCards - 1];
+    this.topCard = this.cards[this.numberOfCards - 1];
   }
   /**
    *
@@ -33,10 +36,10 @@ class Pile extends Deck{
       }
     }
 
-    this.updateNumOfCards();
-    this.topCard = this.cards[this.numOfCards - 1];
+    this.updateNumberOfCards();
+    this.topCard = this.cards[this.numberOfCards - 1];
 
-    return this.numOfCards;
+    return this.numberOfCards;
     function addCard(card) {
       this.cards.push(card);
     }

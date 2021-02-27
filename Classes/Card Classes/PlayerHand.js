@@ -1,4 +1,7 @@
-class PlayerHand extends Deck {
+import Deck from './Deck.js'
+import Card from './Card.js'
+
+export default class PlayerHand extends Deck {
   constructor() {
     super();
     this.points = 0;
@@ -113,8 +116,8 @@ class PlayerHand extends Deck {
         }
       }
     }
-    super.updateNumOfCards();
-    return this.numOfCards;
+    super.updateNumberOfCards();
+    return this.numberOfCards;
 
     function addCard(card) {
       switch (location) {

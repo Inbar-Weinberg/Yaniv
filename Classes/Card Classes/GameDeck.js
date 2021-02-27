@@ -1,4 +1,7 @@
-class GameDeck extends Deck{
+import Deck from './Deck.js'
+import Card from './Card.js'
+
+export default class GameDeck extends Deck{
   constructor() {
     super();
     const suits = ["spades", "diamonds", "clubs", "hearts"];
@@ -24,6 +27,6 @@ class GameDeck extends Deck{
     }
     this.cards.push(new Card(0,0,true));//add two Joker Card
     this.cards.push(new Card(0,0,true));
-    super.updateNumOfCards();
+    super.updateNumberOfCards();
   }
 }
