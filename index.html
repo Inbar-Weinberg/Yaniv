@@ -4,10 +4,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel='stylesheet' href='Design/index.css'/>
+    <title>Yaniv!</title>
 </head>
 <body>
-    2
+    <h1>Welcome to Yaniv</h1>
+    <h2>Lets Play</h2>
+    <form id = 'new-game-form'>
+        <div id = 'players-name-fields'>
+            <h3>Enter names for all players</h3>
+            <h4>Minimum of two players</h4>
+            <label for="player-1">
+                <span>First Player:</span>
+                <input id="player-1" placeholder="Enter Name">
+              </label><br>
+              <label for="player-2">
+                Second Player:
+                <input id="player-2" placeholder="Enter Name">
+              </label><br>
+              <label for="player-3">
+                Third Player:
+                <input id="player-3" placeholder="Enter Name">
+              </label><br>
+              <label for="player-4">
+                  Fourth Player
+                <input id="player-4" placeholder="Enter Name">
+              </label>
+        </div>
+        <h3>If you want, change the game's settings:</h3>
+
+        <div id = 'game-settings'>
+            <label for="maximum-for-yaniv">
+                <span>Maximum points to call Yaniv:</span>
+                <input id="maximum-for-yaniv" placeholder="Default is 7">
+              </label><br>
+              <label for="maximum-points-for-player">
+                <span>Maximum points before a player is removed:</span>
+                <input id="maximum-points-for-player" placeholder="Default is 200">
+              </label><br>
+              <label for="cards-at-start">
+                <span>How many card each player get in the beginning of a new round:</span>
+                <input id="cards-at-start" placeholder="Default is 5">
+              </label><br>
+        </div>
+        
+    </form>
     
 </body>
 <script type="module" src="index.js"></script>

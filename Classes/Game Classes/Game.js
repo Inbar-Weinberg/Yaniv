@@ -33,12 +33,13 @@ export default class Game {
     this.numberOfPlayers = this.players.length;
   }
   /**
-   * @param  {Number[]} scores An array containing the scores of all player by order.
+   * @param  {{winner: Player, scores: Number[]}} scores An object describing the winner of the round and the scores of all players.
    */
-  updateScores(scores) {
+  updateScores({ winner, scores }) {
     for (let i = 0; i < this.numberOfPlayers; i++) {
       this.players[i].changeScore(scores[i], this.maxPointForPlayer);
     }
+    this.lastRoundWinner = winner;
   }
   /**
    * @description A method to removing loosing players from the last round and declare a game winner.
@@ -46,7 +47,6 @@ export default class Game {
    * @returns {{winner: Player, lastRoundLosers: String}} An object describing the winner of the game and the losers of the last round
    */
   evaluateGameLooser() {
-    //return an object {winner:Player,lastRoundLosers:String}
     let minScore = this.players[0].score;
     let minIndex = 0;
     let lastRoundLosers = "";
@@ -90,7 +90,7 @@ export default class Game {
         return { winner: this.players[0], lastRoundLosers };
     }
   }
-  newRound(){
-    return new Round(this.players, this.maximumForYaniv, this.cardsAtStart)
+  newRound() {
+    return new Round(this.players, this.maximumForYaniv, this.cardsAtStart, this.lastRoundWinner);
   }
 }
