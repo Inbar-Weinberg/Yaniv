@@ -1,17 +1,29 @@
-import GameDeck from './Classes/Card Classes/GameDeck.js';
-import Pile from './Classes/Card Classes/Pile.js';
-import PlayerHand from './Classes/Card Classes/PlayerHand.js'
-import Game from './Classes/Game Classes/Game.js'
+/*
+import GameDeck from "./Classes/Card Classes/GameDeck.js";
+import Pile from "./Classes/Card Classes/Pile.js";
+import PlayerHand from "./Classes/Card Classes/PlayerHand.js";
+*/
+import Game from "./Classes/Game Classes/Game.js";
 
-(function startGame(){
-    const startButton = document.getElementById('start-game-button');
-    startButton.addEventListener(click,()=>{
+const startForm = document.getElementById("new-game-form");
+let game =startForm.addEventListener("submit", startGame);
 
-    })
-})();
+ function startGame(event) {
+  event.preventDefault();
+  const names = [];
+  document.querySelectorAll(".player-name").forEach((input) => {
+    if (input.value) {
+      names.push(input.value);
+      input.value = "";
+    }
+  });
 
+  const maximumForYaniv = document.getElementById("maximum-for-yaniv").value;
+  const maxPointForPlayer = document.getElementById("maximum-points-for-player")
+    .value;
+  const cardsAtStart = document.getElementById("cards-at-start");
+  startForm.style.display = "none";
+  return new Game(names, maximumForYaniv, maxPointForPlayer, cardsAtStart);
 
-//  <form id='new-game-form'>*/
-
-
-
+  //setTimeout(()=>startForm.style.display = "initial",1000)
+};
