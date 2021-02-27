@@ -1,0 +1,33 @@
+
+#start-screen {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-content: stretch;
+  align-items: center;
+  h3{
+    margin:12px auto;
+  }
+  h4{
+    margin:16px auto;
+  }
+
+  #players-name-fields {
+    text-align: left;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 5px;
+  }
+  #game-settings {
+    text-align: left;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 5px;
+  }
+}
+//Maximum points per a player is removed:

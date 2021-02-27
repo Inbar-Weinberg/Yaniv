@@ -1,0 +1,14 @@
+//imports
+@import "./startScreen";
+@import "./gameScreen";
+@import "./constants";
+
+body{
+    @include baseline
+}
+input{
+    @include input-fields;    
+}
+button{
+    @include buttons;
+}

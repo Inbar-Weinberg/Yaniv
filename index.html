@@ -1,55 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href='Design/index.css'/>
+    <link rel='stylesheet' href='Design/index.css' />
     <title>Yaniv!</title>
 </head>
-<body>
-    <h1>Welcome to Yaniv</h1>
-    <h2>Lets Play</h2>
-    <form id = 'new-game-form'>
-        <div id = 'players-name-fields'>
-            <h3>Enter names for all players</h3>
-            <h4>Minimum of two players</h4>
-            <label for="player-1">
-                <span>First Player:</span>
-                <input id="player-1" placeholder="Enter Name">
-              </label><br>
-              <label for="player-2">
-                Second Player:
-                <input id="player-2" placeholder="Enter Name">
-              </label><br>
-              <label for="player-3">
-                Third Player:
-                <input id="player-3" placeholder="Enter Name">
-              </label><br>
-              <label for="player-4">
-                  Fourth Player
-                <input id="player-4" placeholder="Enter Name">
-              </label>
-        </div>
-        <h3>If you want, change the game's settings:</h3>
 
-        <div id = 'game-settings'>
-            <label for="maximum-for-yaniv">
-                <span>Maximum points to call Yaniv:</span>
-                <input id="maximum-for-yaniv" placeholder="Default is 7">
-              </label><br>
-              <label for="maximum-points-for-player">
-                <span>Maximum points before a player is removed:</span>
-                <input id="maximum-points-for-player" placeholder="Default is 200">
-              </label><br>
-              <label for="cards-at-start">
-                <span>How many card each player get in the beginning of a new round:</span>
-                <input id="cards-at-start" placeholder="Default is 5">
-              </label><br>
+<body>
+    <form id='new-game-form'>
+        <div id='start-screen'>
+
+            <h1>Welcome to Yaniv</h1>
+
+            <h3>Enter names for all players</h3>
+            <h4>Minimum of two players required</h4>
+            <div id='players-name-fields'>
+                <label for="player-1">
+                    First Player:</label>
+                <input id="player-1" placeholder="Enter Name"  maxlength='15' required >
+
+                <label for="player-2">
+                    Second Player:</label>
+                <input id="player-2" placeholder="Enter Name" maxlength='15' required>
+
+                <label for="player-3">
+                    Third Player:</label>
+                <input id="player-3" placeholder="Enter Name" maxlength='15'>
+
+                <label for="player-4">
+                    Fourth Player</label>
+                <input id="player-4" placeholder="Enter Name" maxlength='15'>
+            </div>
+            <h4>If you want, change the game's settings:</h4>
+
+            <div id='game-settings'>
+                <label for="maximum-for-yaniv">
+                    Maximum points to call Yaniv:</label>
+                <input type="number" id="maximum-for-yaniv" placeholder="Default is 7" min="2" max='20' value="7" >
+
+                <label for="maximum-points-for-player">
+                    Maximum points per player: </label>
+                <input type="number" id="maximum-points-for-player" placeholder="Default is 200" value='200' max='1000'>
+
+                <label for="cards-at-start">
+                    Card per round: </label>
+                <input type="number"    id="cards-at-start" placeholder="Default is 5" min="2" max="10" value='5'>
+            </div>
+            <button type="submit" id='start-game-button'>
+                Lets Play
+            </button>
         </div>
-        
     </form>
-    
 </body>
 <script type="module" src="index.js"></script>
 
