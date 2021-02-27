@@ -1,7 +1,6 @@
 import Player from "./Player.js";
-import Round from "./Classes/Game Classes/Round.js.js";
-import Turn from "./Classes/Game Classes/Turn.js.js";
-import Player from "./Classes/Game Classes/Player.js.js";
+import Round from "./Round.js";
+import Player from "./Player.js";
 
 export default class Game {
   /**
@@ -20,6 +19,7 @@ export default class Game {
     this.lastRoundWinner = undefined;
     this.maximumForYaniv = maximumForYaniv;
     this.maxPointForPlayer = maxPointForPlayer;
+    this.cardsAtStart = cardsAtStart;
     this.players = []; // array of Player
     for (let i = 0; i < names.length; i++) {
       if (names[i]) {
@@ -36,7 +36,7 @@ export default class Game {
    * @param  {Number[]} scores An array containing the scores of all player by order.
    */
   updateScores(scores) {
-    for (let i = 0; i < this.numOfPlayers; i++) {
+    for (let i = 0; i < this.numberOfPlayers; i++) {
       this.players[i].changeScore(scores[i], this.maxPointForPlayer);
     }
   }

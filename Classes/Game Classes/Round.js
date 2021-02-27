@@ -1,4 +1,6 @@
 import Player from "./Player.js";
+import Turn from "./Turn.js";
+
 export default class Round {
   /**
    *
@@ -22,7 +24,6 @@ export default class Round {
   updateNumberOfPlayers() {
     this.numberOfPlayers = this.players.length;
   }
-
   /**
    * @description Evaluates round scores and declares a round's winner.
    * If two players are tied for the score the player with the lower index will be declared round winner.
@@ -33,6 +34,7 @@ export default class Round {
     let asaf = false;
     let minIndex = 0;
     let scores = [];
+
     find_winner: {
       for (let i = 0; i < this.numberOfPlayers; i++) {
         if (this.players[i].hand.points < this.players[minIndex].hand.points) {
@@ -50,6 +52,9 @@ export default class Round {
         scores[this.players.indexOf(player)] + 30;
       }
     }
-    return {winner: player[minIndex], scores: scores};  
+    return { winner: this.players[minIndex], scores: scores };
+  }
+  newTurn(){
+      return new Turn()
   }
 }
