@@ -55,13 +55,33 @@
         </div>
     </form>
     <div id='playing-board'>
-        <div class="div1"> m</div>
-        <div class="div2">2 </div>
-        <div class="div3"> 3</div>
-        <div class="div4"> 4</div>
-        <div class="div5"> k</div>
-        <div class="div6"> 8</div>
-        <div class="div7"> 7</div>
+        <div class="div1 main-player">
+            <img src='./Card Images/Back/1B.svg' class='other-cards'>
+        </div>
+        <div class="side-player left">
+            <img src='./Card Images/Back/1B.svg' class='other-cards'>
+            <img src='./Card Images/Back/2B.svg' class='other-cards'>
+        </div>
+        <div class="game-deck">
+            <img src='./Card Images/Back/1B.svg' id='game-deck'>
+        </div>
+        <div class="controls">
+            <button type="button" id=yaniv-button>
+                Yaniv!
+            </button>
+            <div>Points on hand:</div>
+            <div>Points of marked cards:</div>
+        </div>
+        <div class="pile"> 
+            <img src='./Card Images/Back/2B.svg' class='other-cards'>
+        </div>
+        <div class="side-player right">
+            <img src='./Card Images/Back/2B.svg' class='other-cards'>
+            <img src='./Card Images/Back/1B.svg' class='other-cards'>
+        </div>
+        <div class="top-player">
+            <img src='./Card Images/Back/1B.svg' class='other-cards'>
+        </div>
     </div>
 </body>
 <script type="module" src="./index.js"></script>

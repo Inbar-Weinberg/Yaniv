@@ -17,7 +17,8 @@ let game =startForm.addEventListener("submit", startGame);
     if (input.value) {
       names.push(input.value);
       input.value = "";
-    }
+    }//            <img src='./Card Images/Back/1B.svg' id='game-deck'>
+
   });
 
   const maximumForYaniv = document.getElementById("maximum-for-yaniv").value;

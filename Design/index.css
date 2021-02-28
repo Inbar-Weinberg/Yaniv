@@ -54,52 +54,73 @@
 }
 
 #playing-board {
+  padding-left: 30px;
+  padding-right: 30px;
+  justify-items: center;
+  height: 100%;
   display: -ms-grid;
   display: grid;
-  width: 100%;
-  height: 100%;
-  -ms-grid-columns: (1fr)[9];
-      grid-template-columns: repeat(9, 1fr);
-  -ms-grid-rows: (1fr)[7];
-      grid-template-rows: repeat(7, 1fr);
-  grid-column-gap: 10px;
+  -ms-grid-columns: 28vh 1fr 18vh 0.5fr 28vh 0.5fr 18vh 1fr 28vh;
+      grid-template-columns: 28vh 1fr 18vh 0.5fr 28vh 0.5fr 18vh 1fr 28vh;
+  -ms-grid-rows: 14vh 1fr 28vh 1fr 28vh;
+      grid-template-rows: 14vh 1fr 28vh 1fr 28vh;
+  grid-column-gap: 0px;
   grid-row-gap: 0px;
 }
 
-.div1 {
-  background-color: blanchedalmond;
+#playing-board .main-player {
+  -ms-grid-row: 5;
+  -ms-grid-row-span: 1;
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 5;
+  grid-area: 5 / 3 / 6 / 8;
+}
+
+#playing-board .side-player.right {
   -ms-grid-row: 2;
-  -ms-grid-row-span: 5;
+  -ms-grid-row-span: 3;
   -ms-grid-column: 1;
   -ms-grid-column-span: 1;
-  grid-area: 2 / 1 / 7 / 2;
+  grid-area: 2 / 1 / 5 / 2;
 }
 
-.div2 {
-  -ms-grid-row: 2;
-  -ms-grid-row-span: 5;
-  -ms-grid-column: 10;
-  -ms-grid-column-span: 1;
-  grid-area: 2 / 10 / 7 / 11;
-}
-
-.div3 {
+#playing-board .game-deck {
   -ms-grid-row: 3;
-  -ms-grid-row-span: 3;
+  -ms-grid-row-span: 1;
   -ms-grid-column: 3;
-  -ms-grid-column-span: 2;
-  grid-area: 3 / 3 / 6 / 5;
+  -ms-grid-column-span: 1;
+  grid-area: 3 / 3 / 4 / 4;
 }
 
-.div4 {
+#playing-board .controls {
   -ms-grid-row: 3;
-  -ms-grid-row-span: 3;
-  -ms-grid-column: 6;
-  -ms-grid-column-span: 2;
-  grid-area: 3 / 6 / 6 / 8;
+  -ms-grid-row-span: 1;
+  -ms-grid-column: 5;
+  -ms-grid-column-span: 1;
+  grid-area: 3 / 5 / 4 / 6;
 }
 
-.div5 {
+#playing-board .pile {
+  -ms-grid-row: 3;
+  -ms-grid-row-span: 1;
+  -ms-grid-column: 7;
+  -ms-grid-column-span: 1;
+  grid-area: 3 / 7 / 4 / 8;
+}
+
+#playing-board .pile :nth-child(n) {
+  width: 18vh;
+}
+
+#playing-board .side-player.left {
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 3;
+  -ms-grid-column: 9;
+  -ms-grid-column-span: 1;
+  grid-area: 2 / 9 / 5 / 10;
+}
+
+#playing-board .top-player {
   -ms-grid-row: 1;
   -ms-grid-row-span: 1;
   -ms-grid-column: 3;
@@ -107,32 +128,22 @@
   grid-area: 1 / 3 / 2 / 8;
 }
 
-.div6 {
-  -ms-grid-row: 2;
-  -ms-grid-row-span: 5;
-  -ms-grid-column: 9;
-  -ms-grid-column-span: 1;
-  grid-area: 2 / 9 / 7 / 10;
+#playing-board #game-deck {
+  width: 100%;
 }
 
-.div7 {
-  -ms-grid-row: 7;
-  -ms-grid-row-span: 1;
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 5;
-  grid-area: 7 / 3 / 8 / 8;
+#playing-board .side-player :nth-child(n) {
+  width: 18vh;
+  -webkit-transform: rotate(90deg) translateX(-5vh) translateY(-5vh);
+          transform: rotate(90deg) translateX(-5vh) translateY(-5vh);
 }
 
-.div8 {
-  -ms-grid-row: 3;
-  -ms-grid-row-span: 3;
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 1;
-  grid-area: 3 / 5 / 6 / 6;
+#playing-board .top-player :nth-child(n) {
+  width: 9vh;
 }
 
-html {
-  height: 100%;
+#playing-board .main-player :nth-child(n) {
+  width: 18vh;
 }
 
 body {
@@ -141,7 +152,11 @@ body {
   font-size: 1.2rem;
   line-height: 1.6rem;
   font-weight: 500;
-  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 100vh;
+  margin: 0;
+  padding: 8px;
 }
 
 input {

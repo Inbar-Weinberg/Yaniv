@@ -2,12 +2,13 @@
 @import "./startScreen";
 @import "./playingBoard";
 @import "./constants";
-html{
-    height:100%;
-}
+
 body{
     @include baseline;
-    height: 100%;
+    box-sizing: border-box;
+    height: 100vh;
+    margin:0;
+    padding: 8px;
 }
 input{
     @include input-fields;    
