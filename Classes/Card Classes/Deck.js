@@ -1,20 +1,24 @@
-import Card from './Card.js'
+import Card from "./Card.js";
+
 export default class Deck {
+  // deck top is last index of the cards array - more efficient
   constructor() {
-    // deck top is last index of the cards array - more efficient
     this.cards = [];
     this.numberOfCards = this.cards.length;
+    this.updateNumberOfCard = function () { // only used internally in Deck Class
+      this.numberOfCards = this.cards.length;
+    };
   }
   /**
    * @description Shuffles the deck at random.
    */
   shuffle() {
-    for (let i = 0; i < this.cards.length; i++) {
-      swapAtRandom(i);
+    for (let i = 0; i < this.numberOfCards; i++) {
+      swapAtRandom.call(this, i);
     }
-    return this.cards;
+
     function swapAtRandom(i) {
-      let index = Math.floor(Math.random() * this.cards.length);
+      let index = Math.floor(Math.random() * this.numberOfCards);
       let temp = this.cards[index];
       this.cards[index] = this.cards[i];
       this.cards[i] = temp;
@@ -31,7 +35,7 @@ export default class Deck {
     if (this.numberOfCards === 0) return removed;
     Input_Is_String: {
       if (typeof cards === "string") {
-        const location = string.toLowerCase(cards);
+        const location = cards.toLowerCase();
         switch (location) {
           case "top":
             removed.push(this.cards.pop());
@@ -44,21 +48,22 @@ export default class Deck {
             this.cards = removed.pop;
             break;
         }
-        this.updateNumberOfCards();
+        this.updateNumberOfCard();
+
         return removed;
       }
     }
     Input_Is_Single_Card: {
-      if (cards instanceof Card) removeSingleCard(cards);
+      if (cards instanceof Card) removeSingleCard.call(this, cards);
     }
     Input_Is_An_Array_Of_Cards: {
       if (cards instanceof Array) {
         for (let i = 0; i < cards.length; i++) {
-          removeSingleCard(cards[i]);
+          removeSingleCard.call(this, cards[i]);
         }
       }
     }
-    this.updateNumberOfCards();
+    this.updateNumberOfCard();
 
     return removed;
 
@@ -81,9 +86,10 @@ export default class Deck {
       location =
         typeof location === "string" ? string.toLowerCase(location) : "top";
     }
+  
     Input_Is_Single_Card: {
       if (cards instanceof Card) {
-        addCard(card);
+        addCard.call(this, card);
       }
     }
     Input_Is_An_Array_Of_Cards: {
@@ -92,12 +98,12 @@ export default class Deck {
         for (let card of cards) {
           if (card instanceof Card) {
             //Validate o
-            addCard(card);
+            addCard.call(this, card);
           }
         }
       }
     }
-    this.updateNumberOfCards();
+    this.updateNumberOfCard();
     return this.numberOfCards;
 
     function addCard(card) {
@@ -111,8 +117,8 @@ export default class Deck {
       }
     }
   }
-
   updateNumberOfCards() {
     this.numberOfCards = this.cards.length;
   }
+ 
 }

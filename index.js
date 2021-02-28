@@ -1,33 +1,42 @@
-/*
+import Deck from "./Classes/Card Classes/Deck.js";
 import GameDeck from "./Classes/Card Classes/GameDeck.js";
 import Pile from "./Classes/Card Classes/Pile.js";
 import PlayerHand from "./Classes/Card Classes/PlayerHand.js";
-*/
+
 import Game from "./Classes/Game Classes/Game.js";
 
 const startForm = document.getElementById("new-game-form");
 const playingBoard = document.getElementById("playing-board");
+let game;
+let gameDeck;
 
-let game =startForm.addEventListener("submit", startGame);
+startForm.addEventListener("submit", startGame);
 
- function startGame(event) {
+function startGame(event) {
   event.preventDefault();
   const names = [];
   document.querySelectorAll(".player-name").forEach((input) => {
     if (input.value) {
       names.push(input.value);
       input.value = "";
-    }//            <img src='./Card Images/Back/1B.svg' id='game-deck'>
-
+    }
   });
 
   const maximumForYaniv = document.getElementById("maximum-for-yaniv").value;
   const maxPointForPlayer = document.getElementById("maximum-points-for-player")
     .value;
-  const cardsAtStart = document.getElementById("cards-at-start");
+  const cardsAtStart = document.getElementById("cards-at-start").value;
   startForm.style.display = "none";
   playingBoard.style.display = "grid";
-  return new Game(names, maximumForYaniv, maxPointForPlayer, cardsAtStart);
+  game = new Game(names, maximumForYaniv, maxPointForPlayer, cardsAtStart);
+  gameDeck = new GameDeck();
+  gameDeck.shuffle();
 
-  //setTimeout(()=>startForm.style.display = "initial",1000)
-};
+  gameDeck.html = document.querySelector(".game-deck");
+
+  game.players.forEach((player) => {
+    for (let i = 0; i < game.cardsAtStart; i++) {
+      player.hand.add("top", gameDeck.remove("top"));
+    }
+  });
+}

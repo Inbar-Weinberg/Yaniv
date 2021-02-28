@@ -1,5 +1,5 @@
-import Deck from './Deck.js'
-import Card from './Card.js'
+import Deck from "./Deck.js";
+import Card from "./Card.js";
 
 export default class PlayerHand extends Deck {
   constructor() {
@@ -98,11 +98,11 @@ export default class PlayerHand extends Deck {
   add(location, cards) {
     Validate_location: {
       location =
-        typeof location === "string" ? string.toLowerCase(location) : "top";
+        typeof location === "string" ? location.toLowerCase() : "top";
     }
     Input_Is_Single_Card: {
       if (cards instanceof Card) {
-        addCard(card);
+        addCard.call(this, cards);
       }
     }
     Input_Is_An_Array_Of_Cards: {
@@ -111,7 +111,7 @@ export default class PlayerHand extends Deck {
         for (let card of cards) {
           if (card instanceof Card) {
             //Validate o
-            addCard(card);
+            addCard.call(this, card);
           }
         }
       }

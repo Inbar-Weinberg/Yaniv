@@ -2,11 +2,11 @@ $card-width: 18vh;
 $card-height: 28vh;
 
 #playing-board {
-    padding-left: 30px;
-    padding-right: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
   justify-items: center;
   height: 100%;
-  display: grid;
+  display: none;
   grid-template-columns: $card-height 1fr $card-width 0.5fr $card-height 0.5fr $card-width 1fr $card-height;
   grid-template-rows: $card-height/2 1fr $card-height 1fr $card-height;
   grid-column-gap: 0px;
@@ -14,32 +14,36 @@ $card-height: 28vh;
 
   .main-player {
     grid-area: 5 / 3 / 6 / 8;
+    :nth-child(n) {
+      width: $card-width;
+    }
   }
   .side-player.right {
     grid-area: 2 / 1 / 5 / 2;
   }
   .game-deck {
     grid-area: 3 / 3 / 4 / 4;
+    :nth-child(n) {
+      width: $card-width;
+    }
   }
   .controls {
-    grid-area: 3 / 5 / 4 / 6;
+    grid-area: 3 / 4 / 4 / 7;
   }
   .pile {
     grid-area: 3 / 7 / 4 / 8;
     :nth-child(n) {
-        width: $card-width;
-      }
-    
+      width: $card-width;
+    }
   }
   .side-player.left {
     grid-area: 2 / 9 / 5 / 10;
   }
   .top-player {
     grid-area: 1 / 3 / 2 / 8;
-  }
- 
-  #game-deck {
-    width: 100%;
+    :nth-child(n) {
+      width: $card-width/2;
+    }
   }
   .side-player {
     :nth-child(n) {
@@ -47,14 +51,5 @@ $card-height: 28vh;
       transform: rotate(90deg) translateX(-5vh) translateY(-5vh);
     }
   }
-  .top-player {
-    :nth-child(n) {
-      width: $card-width/2;
-    }
-  }
-  .main-player {
-    :nth-child(n) {
-      width: $card-width;
-    }
-  }
+
 }
