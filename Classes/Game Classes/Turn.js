@@ -4,9 +4,7 @@ export default class Turn {
     this.player = player;
   }
 
-  canCallYaniv() {
-    return Player.maximumForYaniv >= this.player.hand.points;
-  }
+
 
   nextTurn() {
     return new Turn(player.nextTurn);

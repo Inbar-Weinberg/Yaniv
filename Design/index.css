@@ -79,6 +79,12 @@
   height: 165px;
 }
 
+#playing-board .active-player :nth-child(n)[data-marked="true"] {
+  opacity: 70%;
+  -webkit-transform: translateY(-30px);
+          transform: translateY(-30px);
+}
+
 #playing-board .side-player.right {
   -ms-grid-row: 2;
   -ms-grid-row-span: 1;
@@ -170,13 +176,62 @@
   -webkit-box-flex: 2;
       -ms-flex: 2 1 auto;
           flex: 2 1 auto;
-  -ms-flex-item-align: auto;
-      -ms-grid-row-align: auto;
-      align-self: auto;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 
 #playing-board .mid-field .controls #yaniv-button {
   display: none;
+}
+
+#playing-board .mid-field .controls .throw-button {
+  display: none;
+  border-radius: 3px;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+}
+
+#playing-board .mid-field .controls .throw-button:active {
+  position: relative;
+  top: 1px;
+}
+
+#playing-board .mid-field .controls .throw-button[data-legal="false"] {
+  -webkit-box-shadow: inset 0px 1px 0px 0px #cf866c;
+          box-shadow: inset 0px 1px 0px 0px #cf866c;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #d0451b), to(#bc3315));
+  background: linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+  background-color: #d0451b;
+  border: 1px solid #942911;
+  text-shadow: 0px 1px 0px #854629;
+}
+
+#playing-board .mid-field .controls .throw-button[data-legal="false"]:hover {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #bc3315), to(#d0451b));
+  background: linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+  background-color: #bc3315;
+}
+
+#playing-board .mid-field .controls .throw-button[data-legal="true"] {
+  -webkit-box-shadow: inset 0px 1px 0px 0px #3dc21b;
+          box-shadow: inset 0px 1px 0px 0px #3dc21b;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #44c767), to(#5cbf2a));
+  background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+  background-color: #44c767;
+  border: 1px solid #18ab29;
+  text-shadow: 0px 1px 0px #2f6627;
+}
+
+#playing-board .mid-field .controls .throw-button[data-legal="true"]:hover {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #5cbf2a), to(#44c767));
+  background: linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+  background-color: #5cbf2a;
 }
 
 #playing-board .mid-field .pile {
@@ -196,7 +251,8 @@
 }
 
 body {
-  background-color: #50aa50;
+  background-color: #5ebd5e;
+  background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png");
   color: black;
   font-size: 1.2rem;
   line-height: 1.6rem;

@@ -29,19 +29,22 @@ export default class PlayerHand extends Deck {
    * @description evaluate if the cards the player wants to play are a legal play.
    * Takes Jokers in consideration.
    * @param  {Card[]} cards - The card to evaluate.
+   * @returns {Boolean} true if the marked cards are a legal combination.
    */
   evaluateLegalCombination(cards) {
-    Separate_Jokers_From_Other_Cards: {
-      let cardsWithOutJokers = cards.filter((card) => !card.isJoker); // returns a new array without jokers
-      let jokersInCards = cards.filter((card) => card.isJoker);
-      const numOfJokers = jokersInCards.length;
-    }
+    if (cards.length === 0) return false; // no cards marked.
+    let cardsWithOutJokers = cards.filter((card) => !card.isJoker); // returns a new array without jokers
+    let jokersInCards = cards.filter((card) => card.isJoker);
+    const numOfJokers = jokersInCards.length;
+
     Single_Card_Play: {
-      if (cardsWithOutJokers.length <= 1) return true;
-      // the player is throwing out only one card that is not a joker
+      if (cardsWithOutJokers.length <= 1) return true; // the player is throwing out only one card that is not a joker
     }
     All_Cards_Are_Same_Rank: {
       if (areCardsSameRank()) return true;
+    }
+    at_least_three_cards_picked: {
+      if (cards.length < 3) return false;
     }
     Cards_Form_A_Sequence: {
       if (!areCardsSameSuit()) return false;
@@ -97,8 +100,7 @@ export default class PlayerHand extends Deck {
    */
   add(cards, location) {
     Validate_location: {
-      location =
-        typeof location === "string" ? location.toLowerCase() : "top";
+      location = typeof location === "string" ? location.toLowerCase() : "top";
     }
     Input_Is_Single_Card: {
       if (cards instanceof Card) {
@@ -150,7 +152,7 @@ export default class PlayerHand extends Deck {
         : card.cardValue > 10
         ? 10
         : card.cardValue;
-      return;
+      return this.markedCards;
     }
     if (!card.isMarked) {
       const index = this.markedCards.indexOf(card);

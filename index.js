@@ -13,6 +13,8 @@ let gameDeck;
 let round;
 let turn;
 let pile;
+let activePlayer;
+let yanivButton;
 
 startForm.addEventListener("submit", startGame);
 
@@ -28,7 +30,6 @@ function startGame(event) {
         input.value = "";
       }
     });
-
     const maximumForYaniv = document.getElementById("maximum-for-yaniv").value;
     const maxPointForPlayer = document.getElementById(
       "maximum-points-for-player"
@@ -66,31 +67,33 @@ function startNewRound(game) {
 
 function startNewTurn(round) {
   turn = round.newTurn();
-  const activePlayerDiv = document.querySelector(".active-player");
-  activateTurnGraphics(activePlayerDiv);
-  activePlayerDiv.addEventListener("click", markCards);
+  activePlayer = turn.player;
+
+  activePlayer.html = document.querySelector(".active-player");
+  activateTurnGraphics();
+  activePlayer.html.addEventListener("click", markCards);
 }
 
-function activateTurnGraphics(activePlayerDiv) {
+function activateTurnGraphics() {
   player_hand_Graphics: {
-    turn.player.hand.cards.forEach((card) => {
-      activePlayerDiv.append(createCardNode(card));
+    activePlayer.hand.cards.forEach((card) => {
+      activePlayer.html.append(createCardNode(card));
     });
     switch (
       game.numberOfPlayers //set up non active players
     ) {
       case 2:
-        initTopDiv(turn.player.nextPlayer);
+        initTopDiv(activePlayer.nextPlayer);
         break;
       case 3:
-        initLeftDiv(turn.player.nextPlayer);
-        initRightDiv(turn.player.nextPlayer.nextPlayer);
+        initLeftDiv(activePlayer.nextPlayer);
+        initRightDiv(activePlayer.nextPlayer.nextPlayer);
 
         break;
       case 4:
-        initLeftDiv(turn.player.nextPlayer);
-        initTopDiv(turn.player.nextPlayer.nextPlayer);
-        initRightDiv(turn.player.nextPlayer.nextPlayer.nextPlayer);
+        initLeftDiv(activePlayer.nextPlayer);
+        initTopDiv(activePlayer.nextPlayer.nextPlayer);
+        initRightDiv(activePlayer.nextPlayer.nextPlayer.nextPlayer);
         break;
     }
   }
@@ -99,8 +102,8 @@ function activateTurnGraphics(activePlayerDiv) {
     gameDeck.html.append(createCardNode(null, "black"));
   }
   yaniv_button: {
-    if (turn.canCallYaniv()) {
-      let yanivButton = document.getElementById("yaniv-button");
+    if (activePlayer.canCallYaniv()) {
+      yanivButton = document.getElementById("yaniv-button");
       yanivButton.style.display = "block";
       yanivButton.addEventListener("click", callYaniv);
       function callYaniv() {
@@ -160,7 +163,17 @@ function activateTurnGraphics(activePlayerDiv) {
 
 function markCards(event) {
   let cardNode = event.target.closest("IMG");
-  cardNode.card.isMarked=!cardNode.card.isMarked
-  alert(cardNode.card.isMarked);
-
+  cardNode.card.isMarked = !cardNode.card.isMarked;
+  cardNode.dataset.marked = cardNode.card.isMarked;
+  let markedCards = activePlayer.hand.updateMarkedCards(cardNode.card);
+  let legalCombo = activePlayer.hand.evaluateLegalCombination(markedCards);
+  let throwButton = document.querySelector(".throw-button");
+  throwButton.style.display = markedCards.length ? "block" : "none";
+  if (legalCombo) {
+    throwButton.innerText = "Throw cards";
+    throwButton.dataset.legal = "true";
+  } else {
+    throwButton.innerText = "Can't throw";
+    throwButton.dataset.legal = "false";
+  }
 }

@@ -1,0 +1,81 @@
+@mixin bad-combo {
+  box-shadow: inset 0px 1px 0px 0px #cf866c;
+  background: linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+  background-color: #d0451b;
+  border: 1px solid #942911;
+  text-shadow: 0px 1px 0px #854629;
+
+  &:hover {
+    background: linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+    background-color: #bc3315;
+  }
+}
+
+@mixin good-combo {
+  box-shadow: inset 0px 1px 0px 0px #3dc21b;
+  background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+  background-color: #44c767;
+  border: 1px solid #18ab29;
+  text-shadow: 0px 1px 0px #2f6627;
+  &:hover {
+    background: linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+    background-color: #5cbf2a;
+  }
+}
+
+@mixin mid-field {
+  width: 700px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
+  .game-deck {
+    order: 0;
+    flex: 1 1 auto;
+    align-self: auto;
+    :nth-child(n) {
+      height: $card-height;
+    }
+  }
+  .controls {
+    order: 0;
+    flex: 2 1 auto;
+    align-self: center;
+    #yaniv-button {
+      display: none;
+    }
+
+    .throw-button {
+      display: none;
+      border-radius: 3px;
+      cursor: pointer;
+      color: #ffffff;
+      font-family: Arial;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 6px 24px;
+      text-decoration: none;
+
+      &:active {
+        position: relative;
+        top: 1px;
+      }
+      &[data-legal="false"] {
+        @include bad-combo;
+      }
+      &[data-legal="true"] {
+        @include good-combo;
+      }
+    }
+  }
+  .pile {
+    order: 0;
+    flex: 1 1 auto;
+    align-self: auto;
+    :nth-child(n) {
+      height: $card-height;
+    }
+  }
+}

@@ -20,4 +20,9 @@ export default class Player {
     this.score = this.score === maxScore ? 0 : this.score + score;
     return this.score;
   }
+
+  canCallYaniv() {
+    return Player.maximumForYaniv >= this.hand.points;
+  }
+
 }

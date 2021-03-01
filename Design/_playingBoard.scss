@@ -1,3 +1,4 @@
+@import "./midField";
 $top-height: 100px;
 $card-height: 165px;
 $card-width: 106px;
@@ -18,6 +19,10 @@ $card-width: 106px;
     grid-area: 3 / 2 / 4 / 3;
     :nth-child(n) {
       height: $card-height;
+      &[data-marked="true"] {
+        opacity: 70%;
+        transform: translateY(-30px);
+      }
     }
   }
   .side-player.right {
@@ -46,37 +51,6 @@ $card-width: 106px;
   }
   .mid-field {
     grid-area: 2 / 2 / 3 / 3;
-    width: 700px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
-    align-content: center;
-    align-items: center;
-    .game-deck {
-      order: 0;
-      flex: 1 1 auto;
-      align-self: auto;
-      :nth-child(n) {
-        height: $card-height;
-      }
-    }
-    .controls {
-      order: 0;
-      flex: 2 1 auto;
-      align-self: auto;
-
-      #yaniv-button {
-        display: none;
-      }
-    }
-    .pile {
-      order: 0;
-      flex: 1 1 auto;
-      align-self: auto;
-      :nth-child(n) {
-        height: $card-height;
-      }
-    }
+    @include mid-field;
   }
 }
