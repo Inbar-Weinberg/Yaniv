@@ -46,6 +46,7 @@ $card-width: 106px;
   }
   .mid-field {
     grid-area: 2 / 2 / 3 / 3;
+    width:700px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -56,6 +57,9 @@ $card-width: 106px;
       order: 0;
       flex: 1 1 auto;
       align-self: auto;
+      :nth-child(n) {
+        height: $card-height;
+      }
     }
     .controls {
       order: 0;
@@ -66,6 +70,9 @@ $card-width: 106px;
       order: 0;
       flex: 1 1 auto;
       align-self: auto;
+      :nth-child(n) {
+        height: $card-height;
+      }
     }
   }
 }

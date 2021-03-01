@@ -49,6 +49,7 @@ function startNewRound(game) {
     gameDeck.shuffle();
     gameDeck.html = document.querySelector(".game-deck");
     pile = new Pile();
+    pile.html = document.querySelector('.pile');
   }
 
   deal_cards: {
@@ -86,7 +87,10 @@ function activateTurnGraphics() {
       fourPlayerGraphics(turn.player.nextPlayer);
       break;
   }
-
+  pile_deck:{
+    pile.html.append(createCardNode(pile.topCard));
+    gameDeck.html.append(createCardNode(null,'black'));
+  }
   function twoPlayerGraphics(player) {
     initTopDiv(player);
   }
