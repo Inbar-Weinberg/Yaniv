@@ -65,50 +65,69 @@ function startNewTurn(round) {
 }
 
 function activateTurnGraphics() {
-  const turnGraphics = [
-    mainPlayerGraphics,
-    twoPlayerGraphics,
-    threePlayerGraphics,
-  ];
-
-  //turnGraphics[0]();
-  //turnGraphics[1]();
-
-  function mainPlayerGraphics() {
+  main_Player_Graphics: {
     const mainPlayer = document.querySelector(".main-player");
     turn.player.hand.cards.forEach((card) => {
       mainPlayer.append(createCardNode(card));
     });
   }
 
-  function twoPlayerGraphics() {
+  switch (game.numberOfPlayers) {
+    case 2:
+      twoPlayerGraphics(turn.player.nextPlayer);
+      break;
+    case 3:
+      threePlayerGraphics(turn.player.nextPlayer);
+      break;
+    case 4:
+      fourPlayerGraphics();
+      break;
+  }
+
+  function twoPlayerGraphics(player) {
+    initTopDiv(player);
+  }
+
+  function threePlayerGraphics(player) {
+    initLeftDiv(player);
+    initRightDiv(player.nextPlayer);
+  }
+  function fourPlayerGraphics(player) {
+    initLeftDiv(player);
+    initTopDiv(player.nextPlayer);
+    initRightDiv(player.nextPlayer.nextPlayer);
+  }
+
+  function initTopDiv(player) {
     const nextPlayerDiv = document.querySelector(".top-player");
-    turn.player.nextPlayer.hand.cards.forEach((card, index) => {
+    player.hand.cards.forEach((card, index) => {
       nextPlayerDiv.append(
         index % 2 ? createCardNode(null, "Red") : createCardNode(null, "Black")
       );
     });
   }
 
-  function threePlayerGraphics() {
+  function initLeftDiv(player) {
     let nextPlayerDiv = document.querySelector(".side-player.left");
-    turn.player.nextPlayer.hand.cards.forEach((card, index) => {
+    player.hand.cards.forEach((card, index) => {
       let cardNode =
         index % 2 ? createCardNode(null, "Red") : createCardNode(null, "Black");
-      nextPlayerDiv.append(cardNode);
-      cardNode.style.transform = `rotate(90deg) translateX(${
-        -5 - 20 * index
-      }vh) translateY(-5vh)`;
+      player.append(cardNode);
+      cardNode.style.transform = `rotate(90deg) scale(6) translateX(${
+        4 * index
+      }px) `;
     });
+  }
 
-    nextPlayerDiv = document.querySelector(".side-player.right");
-    turn.player.nextPlayer.nextPlayer.hand.cards.forEach((card, index) => {
+  function initRightDiv(player) {
+    let nextPlayerDiv = document.querySelector(".side-player.right");
+    player.nextPlayer.hand.cards.forEach((card, index) => {
       let cardNode =
         index % 2 ? createCardNode(null, "Red") : createCardNode(null, "Black");
       nextPlayerDiv.append(cardNode);
-      cardNode.style.transform = `rotate(90deg) translateX(${
-        -5 - 20 * index
-      }vh) translateY(-5vh)`;
+      cardNode.style.transform = `rotate(90deg) scale(6) translateX(${
+        4 * index
+      }px) `;
     });
   }
 

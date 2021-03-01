@@ -18,21 +18,21 @@
             <div id='players-name-fields'>
                 <label for="player-1">
                     First Player:</label>
-                <input id="player-1" class='player-name' placeholder="Enter Name" maxlength='15' value='player1'
+                <input id="player-1" class='player-name' placeholder="Enter Name" maxlength='15' value='player-1'
                     required>
 
                 <label for="player-2">
                     Second Player:</label>
-                <input id="player-2" class='player-name' placeholder="Enter Name" maxlength='15' value='player2'
+                <input id="player-2" class='player-name' placeholder="Enter Name" maxlength='15' value='player-2'
                     required>
 
                 <label for="player-3">
                     Third Player:</label>
-                <input id="player-3" class='player-name' placeholder="Enter Name" maxlength='15'>
+                <input id="player-3" class='player-name' placeholder="Enter Name" maxlength='15' value='player-3'>
 
                 <label for="player-4">
                     Fourth Player</label>
-                <input id="player-4" class='player-name' placeholder="Enter Name" maxlength='15'>
+                <input id="player-4" class='player-name' placeholder="Enter Name" maxlength='15' value='player-4'>
             </div>
             <h4>If you want, change the game's settings:</h4>
 
@@ -47,7 +47,7 @@
 
                 <label for="cards-at-start">
                     Cards per round: </label>
-                <input type="number" id="cards-at-start" placeholder="Default is 5" min="2" max="10" value='5'>
+                <input type="number" id="cards-at-start" placeholder="Default is 5" min="2" max="10" value='6'>
             </div>
             <button type="submit" id='start-game-button'>
                 Lets Play
@@ -56,10 +56,8 @@
     </form>
     <div id='playing-board'>
         <div class="main-player">
-            <img src='./Card Images/Back/Red.svg'>
         </div>
         <div class="side-player right">
-            <img src='./Card Images/Back/Red.svg'>
         </div>
         <div class='mid-field'>
             <div class="game-deck">
@@ -75,11 +73,9 @@
             </div>
         </div>
         <div class="side-player left">
-            <img src='./Card Images/Back/Red.svg'>
 
         </div>
         <div class="top-player">
-            <img src='./Card Images/Back/Red.svg'>
         </div>
     </div>
 </body>
