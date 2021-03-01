@@ -67,7 +67,7 @@
   grid-row-gap: 10px;
 }
 
-#playing-board .main-player {
+#playing-board .active-player {
   -ms-grid-row: 3;
   -ms-grid-row-span: 1;
   -ms-grid-column: 2;
@@ -75,7 +75,7 @@
   grid-area: 3 / 2 / 4 / 3;
 }
 
-#playing-board .main-player :nth-child(n) {
+#playing-board .active-player :nth-child(n) {
   height: 165px;
 }
 

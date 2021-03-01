@@ -6,7 +6,6 @@ import PlayerHand from "./Classes/Card Classes/PlayerHand.js";
 import Game from "./Classes/Game Classes/Game.js";
 import Turn from "./Classes/Game Classes/Turn.js";
 
-
 const startForm = document.getElementById("new-game-form");
 const playingBoard = document.getElementById("playing-board");
 let game;
@@ -19,6 +18,8 @@ startForm.addEventListener("submit", startGame);
 
 function startGame(event) {
   event.preventDefault();
+  startForm.removeEventListener("submit", startGame);
+
   create_game: {
     const names = [];
     document.querySelectorAll(".player-name").forEach((input) => {
@@ -65,59 +66,48 @@ function startNewRound(game) {
 
 function startNewTurn(round) {
   turn = round.newTurn();
-  activateTurnGraphics();
+  const activePlayerDiv = document.querySelector(".active-player");
+  activateTurnGraphics(activePlayerDiv);
+  activePlayerDiv.addEventListener("click", markCards);
 }
 
-function activateTurnGraphics() {
+function activateTurnGraphics(activePlayerDiv) {
   player_hand_Graphics: {
-    const mainPlayer = document.querySelector(".main-player");
     turn.player.hand.cards.forEach((card) => {
-      mainPlayer.append(createCardNode(card));
+      activePlayerDiv.append(createCardNode(card));
     });
-    // non active players
-    switch (game.numberOfPlayers) {
+    switch (
+      game.numberOfPlayers //set up non active players
+    ) {
       case 2:
-        twoPlayerGraphics(turn.player.nextPlayer);
+        initTopDiv(turn.player.nextPlayer);
         break;
       case 3:
-        threePlayerGraphics(turn.player.nextPlayer);
+        initLeftDiv(turn.player.nextPlayer);
+        initRightDiv(turn.player.nextPlayer.nextPlayer);
+
         break;
       case 4:
-        fourPlayerGraphics(turn.player.nextPlayer);
+        initLeftDiv(turn.player.nextPlayer);
+        initTopDiv(turn.player.nextPlayer.nextPlayer);
+        initRightDiv(turn.player.nextPlayer.nextPlayer.nextPlayer);
         break;
     }
   }
   pile_deck: {
     pile.html.append(createCardNode(pile.topCard));
     gameDeck.html.append(createCardNode(null, "black"));
-  }    
-
-  yaniv_button:{
-
-    if (turn.canCallYaniv()){
-      let yanivButton=document.getElementById('yaniv-button');
+  }
+  yaniv_button: {
+    if (turn.canCallYaniv()) {
+      let yanivButton = document.getElementById("yaniv-button");
       yanivButton.style.display = "block";
-      yanivButton.addEventListener('click',callYaniv);
-      function callYaniv(){
-        alert();
+      yanivButton.addEventListener("click", callYaniv);
+      function callYaniv() {
+        yanivButton.removeEventListener("click", callYaniv);
+        alert("you called yaniv");
       }
     }
-  }
-
-
-
-
-  function twoPlayerGraphics(player) {
-    initTopDiv(player);
-  }
-  function threePlayerGraphics(player) {
-    initLeftDiv(player);
-    initRightDiv(player.nextPlayer);
-  }
-  function fourPlayerGraphics(player) {
-    initLeftDiv(player);
-    initTopDiv(player.nextPlayer);
-    initRightDiv(player.nextPlayer.nextPlayer);
   }
 
   function initTopDiv(player) {
@@ -162,7 +152,15 @@ function activateTurnGraphics() {
     } else {
       cardNode.setAttribute("src", card.pictureSrc);
       cardNode.setAttribute("alt", `${card.rank} of ${card.suit}`);
+      cardNode.card = card;
     }
     return cardNode;
   }
+}
+
+function markCards(event) {
+  let cardNode = event.target.closest("IMG");
+  cardNode.card.isMarked=!cardNode.card.isMarked
+  alert(cardNode.card.isMarked);
+
 }

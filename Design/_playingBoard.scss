@@ -14,7 +14,7 @@ $card-width: 106px;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
 
-  .main-player {
+  .active-player {
     grid-area: 3 / 2 / 4 / 3;
     :nth-child(n) {
       height: $card-height;
