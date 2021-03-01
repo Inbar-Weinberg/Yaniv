@@ -1,4 +1,4 @@
-const SUITS = ["spades", "diamonds", "clubs", "hearts"];
+const SUITS = ["Spades", "Diamonds", "Clubs", "Hearts"];
 const RANKS = [
   "A",
   "2",

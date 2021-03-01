@@ -4,6 +4,12 @@ export default class Card {
     this.suit = suit;
     this.isJoker = isJoker;
     this.isMarked = isMarked;
+    set_picture: {
+      let s = suit.charAt(0).toUpperCase();
+      let r = isJoker ? "J" : rank;
+      this.pictureSrc = `./Card Images/${r}${s}.svg`;
+    }
+
     if (isJoker) this.cardValue = 0;
     else if (rank === "A") this.numValue = 1;
     else if (rank === "J") this.numValue = 11;

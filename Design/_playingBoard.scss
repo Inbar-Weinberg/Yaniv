@@ -1,55 +1,72 @@
-$card-width: 18vh;
-$card-height: 28vh;
+$top-height: minmax(14vh, 100px);
+$card-height: minmax(20vh, 165px); //28vh;
+$card-width: $card-height/1.55;
 
 #playing-board {
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 2vw;
+  padding-right: 2vw;
   justify-items: center;
-  height: 100%;
+  height: 98vh;
   display: none;
-  grid-template-columns: $card-height 1fr $card-width 0.5fr $card-height 0.5fr $card-width 1fr $card-height;
-  grid-template-rows: $card-height/2 1fr $card-height 1fr $card-height;
+  grid-template-columns: $card-height 1fr $card-height;
+  grid-template-rows: minmax(14vh, 100px) 1fr $card-height;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
 
   .main-player {
-    grid-area: 5 / 3 / 6 / 8;
+    grid-area: 3 / 2 / 4 / 3;
     :nth-child(n) {
       width: $card-width;
     }
   }
   .side-player.right {
-    grid-area: 2 / 1 / 5 / 2;
+    grid-area: 2 / 3 / 3 / 4;
+    :nth-child(n) {
+      height: $top-height;
+    }
   }
+  .side-player.left {
+    grid-area: 1 / 2 / 2 / 3;
+    :nth-child(n) {
+      height: $top-height;
+    }
+  }
+  .top-player {
+    grid-area: 1 / 2 / 2 / 3;
+    :nth-child(n) {
+      height: $top-height;
+    }
+  }
+  .mid-field {
+    grid-area: 2 / 2 / 3 / 3;
+  }
+}
+/*
+
+  .side-player {
+    :nth-child(n) {
+      width: $card-width;
+      //  transform: rotate(90deg) translateX(-5vh) translateY(-5vh);
+    }
+  }
+
+
   .game-deck {
-    grid-area: 3 / 3 / 4 / 4;
+    grid-area: 2 / 3 / 3 / 4;
     :nth-child(n) {
       width: $card-width;
     }
   }
   .controls {
-    grid-area: 3 / 4 / 4 / 7;
+    grid-area: 2 / 4 / 3 / 7;
   }
   .pile {
-    grid-area: 3 / 7 / 4 / 8;
+    grid-area: 2 / 7 / 3 / 8;
     :nth-child(n) {
       width: $card-width;
-    }
-  }
-  .side-player.left {
-    grid-area: 2 / 9 / 5 / 10;
-  }
-  .top-player {
-    grid-area: 1 / 3 / 2 / 8;
-    :nth-child(n) {
-      width: $card-width/2;
-    }
-  }
-  .side-player {
-    :nth-child(n) {
-      width: $card-width;
-      transform: rotate(90deg) translateX(-5vh) translateY(-5vh);
     }
   }
 
-}
+                  <img src='./Card Images/Back/Red.svg'>
+
+*/

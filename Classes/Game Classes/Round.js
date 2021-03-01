@@ -5,25 +5,18 @@ export default class Round {
   /**
    *
    * @param {Player[]} players An array of all active game players
-   * @param {Number} maximumForYaniv The maximum score a player can call Yaniv. default is 7.
-   * @param {Number} cardsAtStart The amount of cards each player receives in the beginning of each round.
    * @param {Player} lastRoundWinner
    */
   constructor(
     players,
     maximumForYaniv,
-    cardsAtStart,
-    lastRoundWinner = players[0]
+    lastRoundWinner
   ) {
     this.players = players;
-    this.maximumForYaniv = maximumForYaniv;
-    this.cardsAtStart = cardsAtStart;
-    this.firstPlayer = lastRoundWinner;
+    this.firstPlayer = lastRoundWinner? lastRoundWinner:players[0];
     this.numberOfPlayers = this.players.length;
   }
-  updateNumberOfPlayers() {
-    this.numberOfPlayers = this.players.length;
-  }
+
   /**
    * @description Evaluates round scores and declares a round's winner.
    * If two players are tied for the score the player with the lower index will be declared round winner.
@@ -55,6 +48,6 @@ export default class Round {
     return { winner: this.players[minIndex], scores: scores };
   }
   newTurn(){
-      return new Turn()
+      return new Turn(this.firstPlayer);
   }
 }

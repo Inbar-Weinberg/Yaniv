@@ -46,7 +46,7 @@
                 <input type="number" id="maximum-points-for-player" placeholder="Default is 200" value='200' max='1000'>
 
                 <label for="cards-at-start">
-                    Card per round: </label>
+                    Cards per round: </label>
                 <input type="number" id="cards-at-start" placeholder="Default is 5" min="2" max="10" value='5'>
             </div>
             <button type="submit" id='start-game-button'>
@@ -55,33 +55,31 @@
         </div>
     </form>
     <div id='playing-board'>
-        <div class="div1 main-player">
-            <img src='./Card Images/Back/1B.svg' class='other-cards'>
-        </div>
-        <div class="side-player left">
-            <img src='./Card Images/Back/1B.svg' class='other-cards'>
-            <img src='./Card Images/Back/2B.svg' class='other-cards'>
-        </div>
-        <div class="game-deck">
-            <img src='./Card Images/Back/1B.svg'>
-        </div>
-        <div class="controls">
-            <button type="button" id=yaniv-button>
-                Yaniv!
-            </button>
-            <div>Points on hand:</div>
-            <div>Points of marked cards:</div>
-            
-        </div>
-        <div class="pile"> 
-            <img src='./Card Images/Back/2B.svg' class='other-cards'>
+        <div class="main-player">
+            <img src='./Card Images/Back/Red.svg'>
         </div>
         <div class="side-player right">
-            <img src='./Card Images/Back/2B.svg' class='other-cards'>
-            <img src='./Card Images/Back/1B.svg' class='other-cards'>
+            <img src='./Card Images/Back/Red.svg'>
+        </div>
+        <div class='mid-field'>
+            <div class="game-deck">
+            </div>
+            <div class="controls">
+                <button type="button" id=yaniv-button>
+                    Yaniv!
+                </button>
+                <div>Points on hand:</div>
+                <div>Points of marked cards:</div>
+            </div>
+            <div class="pile">
+            </div>
+        </div>
+        <div class="side-player left">
+            <img src='./Card Images/Back/Red.svg'>
+
         </div>
         <div class="top-player">
-            <img src='./Card Images/Back/1B.svg' class='other-cards'>
+            <img src='./Card Images/Back/Red.svg'>
         </div>
     </div>
 </body>

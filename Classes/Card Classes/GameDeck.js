@@ -10,8 +10,8 @@ export default class GameDeck extends Deck {
         this.cards.push(new Card(rank, suit));
       }
     }
-    this.cards.push(new Card(0, 0, true)); //add two Joker Card
-    this.cards.push(new Card(0, 0, true));
+    this.cards.push(new Card(0, 'Red', true)); //add two Joker Card, rank must be string.
+    this.cards.push(new Card(0, 'Black', true));
     this.updateNumberOfCards=this.cards.length;
     super.updateNumberOfCards();
   }

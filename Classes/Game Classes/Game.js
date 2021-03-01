@@ -16,7 +16,6 @@ export default class Game {
     cardsAtStart = 5
   ) {
     this.lastRoundWinner = undefined;
-    this.maximumForYaniv = maximumForYaniv;
     this.maxPointForPlayer = maxPointForPlayer;
     this.cardsAtStart = cardsAtStart;
     this.players = []; // array of Player
@@ -24,13 +23,15 @@ export default class Game {
       if (names[i]) {
         this.players.push(new Player(names[i]));
       }
+      if (i > 0) {
+        this.players[i - 1].nextPlayer = this.players[i];
+      }
+      this.players[this.players.length - 1].nextPlayer = this.players[0]; // last player points to the first one.
     }
     this.numberOfPlayers = this.players.length;
+    Player.maximumForYaniv = maximumForYaniv;
   }
 
-  updateNumberOfPlayers() {
-    this.numberOfPlayers = this.players.length;
-  }
   /**
    * @param  {{winner: Player, scores: Number[]}} scores An object describing the winner of the round and the scores of all players.
    */
@@ -80,9 +81,14 @@ export default class Game {
             this.numberOfPlayers != 2
               ? this.players[i].name
               : this.players[i].name + ", ";
+          if (i===0){
+            this.players[this.players.length - 1].nextPlayer=this.players[1];
+          }else{
+            this.players[i-1].nextPlayer=this.players[i].nextPlayer
+          }
           this.players.splice(i, 1);
           i--; // if array shortens do no move i up
-          this.updateNumberOfPlayers();
+          this.numberOfPlayers = this.players.length;
         }
       }
       if (this.numberOfPlayers === 1)
@@ -90,6 +96,9 @@ export default class Game {
     }
   }
   newRound() {
-    return new Round(this.players, this.maximumForYaniv, this.cardsAtStart, this.lastRoundWinner);
+    return new Round(
+      this.players,
+      this.lastRoundWinner
+    );
   }
 }
