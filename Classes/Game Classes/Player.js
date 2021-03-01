@@ -11,6 +11,8 @@ export default class Player {
     this.hand = new PlayerHand();
     this.score = 0;
   }
+  static maximumForYaniv;
+
   /**
    *
    */

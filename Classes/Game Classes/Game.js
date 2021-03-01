@@ -30,6 +30,8 @@ export default class Game {
     }
     this.numberOfPlayers = this.players.length;
     Player.maximumForYaniv = maximumForYaniv;
+
+
   }
 
   /**

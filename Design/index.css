@@ -175,6 +175,10 @@
       align-self: auto;
 }
 
+#playing-board .mid-field .controls #yaniv-button {
+  display: none;
+}
+
 #playing-board .mid-field .pile {
   -webkit-box-ordinal-group: 1;
       -ms-flex-order: 0;

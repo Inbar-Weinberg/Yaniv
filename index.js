@@ -4,6 +4,8 @@ import Pile from "./Classes/Card Classes/Pile.js";
 import PlayerHand from "./Classes/Card Classes/PlayerHand.js";
 
 import Game from "./Classes/Game Classes/Game.js";
+import Turn from "./Classes/Game Classes/Turn.js";
+
 
 const startForm = document.getElementById("new-game-form");
 const playingBoard = document.getElementById("playing-board");
@@ -43,15 +45,13 @@ function startNewRound(game) {
   create_new_round: {
     round = game.newRound();
   }
-
   create_game_deck: {
     gameDeck = new GameDeck();
     gameDeck.shuffle();
     gameDeck.html = document.querySelector(".game-deck");
     pile = new Pile();
-    pile.html = document.querySelector('.pile');
+    pile.html = document.querySelector(".pile");
   }
-
   deal_cards: {
     round.players.forEach((player) => {
       for (let i = 0; i < game.cardsAtStart; i++) {
@@ -69,28 +69,44 @@ function startNewTurn(round) {
 }
 
 function activateTurnGraphics() {
-  main_Player_Graphics: {
+  player_hand_Graphics: {
     const mainPlayer = document.querySelector(".main-player");
     turn.player.hand.cards.forEach((card) => {
       mainPlayer.append(createCardNode(card));
     });
+    // non active players
+    switch (game.numberOfPlayers) {
+      case 2:
+        twoPlayerGraphics(turn.player.nextPlayer);
+        break;
+      case 3:
+        threePlayerGraphics(turn.player.nextPlayer);
+        break;
+      case 4:
+        fourPlayerGraphics(turn.player.nextPlayer);
+        break;
+    }
+  }
+  pile_deck: {
+    pile.html.append(createCardNode(pile.topCard));
+    gameDeck.html.append(createCardNode(null, "black"));
+  }    
+
+  yaniv_button:{
+
+    if (turn.canCallYaniv()){
+      let yanivButton=document.getElementById('yaniv-button');
+      yanivButton.style.display = "block";
+      yanivButton.addEventListener('click',callYaniv);
+      function callYaniv(){
+        alert();
+      }
+    }
   }
 
-  switch (game.numberOfPlayers) {
-    case 2:
-      twoPlayerGraphics(turn.player.nextPlayer);
-      break;
-    case 3:
-      threePlayerGraphics(turn.player.nextPlayer);
-      break;
-    case 4:
-      fourPlayerGraphics(turn.player.nextPlayer);
-      break;
-  }
-  pile_deck:{
-    pile.html.append(createCardNode(pile.topCard));
-    gameDeck.html.append(createCardNode(null,'black'));
-  }
+
+
+
   function twoPlayerGraphics(player) {
     initTopDiv(player);
   }

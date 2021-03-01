@@ -11,10 +11,10 @@ export default class Card {
     }
 
     if (isJoker) this.cardValue = 0;
-    else if (rank === "A") this.numValue = 1;
-    else if (rank === "J") this.numValue = 11;
-    else if (rank === "Q") this.numValue = 12;
-    else if (rank === "K") this.numValue = 13;
+    else if (rank === "A") this.cardValue = 1;
+    else if (rank === "J") this.cardValue = 11;
+    else if (rank === "Q") this.cardValue = 12;
+    else if (rank === "K") this.cardValue = 13;
     else this.cardValue = Number(rank);
   }
 }
