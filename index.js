@@ -94,7 +94,6 @@ function activateTurnGraphics() {
   function twoPlayerGraphics(player) {
     initTopDiv(player);
   }
-
   function threePlayerGraphics(player) {
     initLeftDiv(player);
     initRightDiv(player.nextPlayer);
