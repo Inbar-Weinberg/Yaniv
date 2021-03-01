@@ -81,7 +81,7 @@ export default class Deck {
    * @param {Card[] | Card} cards - The cards to add to the deck.
    * @return {Number} The new number of cards in the deck.
    */
-  add(location, cards) {
+  add(cards, location) {
     Validate_location: {
       location =
         typeof location === "string" ? string.toLowerCase(location) : "top";

@@ -3,7 +3,7 @@ $card-height: 165px;
 $card-width: 106px;
 
 #playing-board {
-  position:relative;
+  position: relative;
   padding-left: 2vw;
   padding-right: 2vw;
   justify-items: center;
@@ -46,5 +46,26 @@ $card-width: 106px;
   }
   .mid-field {
     grid-area: 2 / 2 / 3 / 3;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-content: center;
+    align-items: center;
+    .game-deck {
+      order: 0;
+      flex: 1 1 auto;
+      align-self: auto;
+    }
+    .controls {
+      order: 0;
+      flex: 2 1 auto;
+      align-self: auto;
+    }
+    .pile {
+      order: 0;
+      flex: 1 1 auto;
+      align-self: auto;
+    }
   }
 }

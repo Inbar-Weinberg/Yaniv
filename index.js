@@ -11,6 +11,7 @@ let game;
 let gameDeck;
 let round;
 let turn;
+let pile;
 
 startForm.addEventListener("submit", startGame);
 
@@ -47,14 +48,16 @@ function startNewRound(game) {
     gameDeck = new GameDeck();
     gameDeck.shuffle();
     gameDeck.html = document.querySelector(".game-deck");
+    pile = new Pile();
   }
 
   deal_cards: {
     round.players.forEach((player) => {
       for (let i = 0; i < game.cardsAtStart; i++) {
-        player.hand.add("top", gameDeck.remove("top"));
+        player.hand.add(gameDeck.remove("top"), "top");
       }
     });
+    pile.add(gameDeck.remove("top"), false);
   }
   startNewTurn(round);
 }
@@ -80,7 +83,7 @@ function activateTurnGraphics() {
       threePlayerGraphics(turn.player.nextPlayer);
       break;
     case 4:
-      fourPlayerGraphics();
+      fourPlayerGraphics(turn.player.nextPlayer);
       break;
   }
 
@@ -112,7 +115,7 @@ function activateTurnGraphics() {
     player.hand.cards.forEach((card, index) => {
       let cardNode =
         index % 2 ? createCardNode(null, "Red") : createCardNode(null, "Black");
-      player.append(cardNode);
+      nextPlayerDiv.append(cardNode);
       cardNode.style.transform = `rotate(90deg) scale(6) translateX(${
         4 * index
       }px) `;

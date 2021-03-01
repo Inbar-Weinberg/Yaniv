@@ -14,10 +14,11 @@ export default class Pile extends Deck {
    * @param  {Card[] | Card} cards - The card to add to the deck.
    * @return {Number} The new number of cards in the deck.
    */
-  add(sequence, cards) {
+  add(cards, sequence) {
     Input_Is_Single_Card: {
+      
       if (cards instanceof Card) {
-        addCard(card);
+        addCard.call(this, cards);
         this.lastAddIsSequence = false;
         this.firstCardOfSequence = undefined;
       }
@@ -25,12 +26,16 @@ export default class Pile extends Deck {
 
     Input_Is_An_Array_Of_Cards: {
       if (cards instanceof Array) {
+        
         if (cards.length === 0) return 0;
+      
         this.lastAddIsSequence = sequence ? true : false;
         this.firstCardOfSequence = sequence ? cards[0] : undefined;
+      
         for (let card of cards) {
           if (card instanceof Card) {
-            addCard(card);
+            addCard.call(this, card);
+
           }
         }
       }
@@ -38,7 +43,7 @@ export default class Pile extends Deck {
 
     this.updateNumberOfCards();
     this.topCard = this.cards[this.numberOfCards - 1];
-
+    
     return this.numberOfCards;
     function addCard(card) {
       this.cards.push(card);
