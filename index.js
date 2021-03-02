@@ -14,9 +14,10 @@ let gameDeck;
 let round;
 //let turn;
 let pile;
-let activePlayer;
+//let activePlayer;
 let yanivButton;
 let markedCards = [];
+let newT;
 
 startForm.addEventListener("submit", startGame, {
   once: false,
@@ -78,11 +79,11 @@ function startNewRound(game) {
 }
 
 function startNewTurn(turn) {
-  activePlayer = turn.player;
-  alert( activePlayer.html)
+  let activePlayer = turn.player;
+
   activePlayer.html = document.querySelector(".active-player");
 
-  activateTurnGraphics();
+  activateTurnGraphics(activePlayer);
   document.querySelector(".points-on-hand").innerText =
     "Points on hand: " + activePlayer.hand.points;
   activePlayer.html.addEventListener("click", markCards, {
@@ -114,56 +115,66 @@ function startNewTurn(turn) {
     }
   }
   function throwCardsFromHand(event) {
+    document.getElementById("yaniv-button").style.display = "none";
     activePlayer.html.removeEventListener("click", markCards);
     event.target.style.display = "none";
 
     gameDeck.topCardHtml.dataset.clickAble = "true";
     pile.topCard.html.dataset.clickAble = "true";
-    if (pile.lastAddedIsSequence) {
-      pile.firstCardOfSequence.html.dataset.clickAble = "true";
-    }
-
-    gameDeck.html.addEventListener("click", drawCard, {
-      once: false,
-    });
-    pile.topCard.html.addEventListener("click", drawCard, {
-      once: false,
-    });
 
     markedCards.forEach((card) => {
+      card.html.dataset.marked = "false";
       card.isMarked = false;
       activePlayer.html.removeChild(card.html);
     });
     update_points: {
       document.querySelector(".points-of-marked").innerText = "";
     }
+
+    if (pile.lastAddedIsSequence) {
+      pile.firstCardOfSequence.html.dataset.clickAble = "true";
+      pile.firstCardOfSequence.html.addEventListener("click", drawCard, {
+        once: false,
+      });
+    }
+
+    gameDeck.topCardHtml.addEventListener("click", drawCard);
+    pile.topCard.html.addEventListener("click", drawCard);
   }
   function drawCard(event) {
+    event.stopPropagation();
+    gameDeck.topCardHtml.removeEventListener("click", drawCard);
+    gameDeck.html.removeEventListener("click", drawCard);
+
+    pile.topCard.html.removeEventListener("click", drawCard);
+
     gameDeck.topCardHtml.dataset.clickAble = "false";
     pile.topCard.html.dataset.clickAble = "false";
     if (pile.lastAddedIsSequence) {
       pile.firstCardOfSequence.html.dataset.clickAble = "false";
+      pile.firstCardOfSequence.html.removeEventListener("click", drawCard);
     }
-    let target = event.target;
 
-    if (pile.lastAddedIsSequence && target === pile.firstCardOfSequence.html) {
+    if (
+      pile.lastAddedIsSequence &&
+      event.target === pile.firstCardOfSequence.html
+    ) {
       activePlayer.html.append(target);
       activePlayer.hand.add(pile.remove(pile.firstCardOfSequence));
       pile.html.removeChild(pile.topCard.html);
     }
 
-    if (target === pile.topCard.html) {
-      activePlayer.html.append(target);
+    if (event.target === pile.topCard.html) {
+      event.target.removeEventListener("click", drawCard);
+      activePlayer.html.append(event.target);
       activePlayer.hand.add(pile.remove("top"));
-    } else {
+    }
+    if (event.target === gameDeck.topCardHtml) {
       let cardArr = gameDeck.remove("top");
-
       activePlayer.hand.add(cardArr);
       cardArr.forEach((card) => activePlayer.html.append(createCardNode(card)));
       pile.html.removeChild(pile.topCard.html);
     }
-    gameDeck.html.removeEventListener("click", drawCard);
-    pile.topCard.html.removeEventListener("click", drawCard);
     addThrownCardToPile();
   }
   function addThrownCardToPile() {
@@ -176,33 +187,32 @@ function startNewTurn(turn) {
     }
     document.querySelector(".points-on-hand").innerText =
       "Points on hand: " + activePlayer.hand.points;
-    markedCards.forEach((card) => markedCards.pop);
+    markedCards = [];
     finishTurn();
   }
   function finishTurn() {
     let nextButton = document.getElementById("next-turn");
     nextButton.style.display = "block";
-    nextButton.addEventListener(
-      "click",
-      () => {
-        nextButton.style.display = "none";
-        startNewTurn(turn.nextTurn());
-      },
-      {
-        once: false,
-      }
-    );
+    nextButton.addEventListener("click", callNextTurn, { once: false });
+    function callNextTurn(event) {
+      nextButton.removeEventListener("click", callNextTurn);
+      nextButton.style.display = "none";
+      newT = turn.nextTurn().nextTurn();
+      alert(newT.player.name);
+      startNewTurn(newT);
+    }
   }
 }
 
-function activateTurnGraphics() {
+function activateTurnGraphics(activePlayer) {
   const topPlayerDiv = document.querySelector(".top-player");
   const leftPlayerDiv = document.querySelector(".side-player.left");
   const rightPlayerDiv = document.querySelector(".side-player.right");
+  const mainDiv = document.querySelector(".active-player");
 
   deactivate_old_graphics: {
-    while (activePlayer.html.firstChild) {
-      activePlayer.html.removeChild(activePlayer.html.firstChild);
+    while (mainDiv.firstChild) {
+      mainDiv.removeChild(mainDiv.firstChild);
     }
     while (topPlayerDiv.firstChild) {
       topPlayerDiv.removeChild(topPlayerDiv.firstChild);
@@ -240,8 +250,8 @@ function activateTurnGraphics() {
   }
 
   yaniv_button: {
+    yanivButton = document.getElementById("yaniv-button");
     if (activePlayer.canCallYaniv()) {
-      yanivButton = document.getElementById("yaniv-button");
       yanivButton.style.display = "block";
       yanivButton.addEventListener("click", callYaniv, {
         once: false,
@@ -254,7 +264,7 @@ function activateTurnGraphics() {
   }
 
   function initTopDiv(player) {
-    const nextPlayerDiv = topPlayerDiv;
+    let nextPlayerDiv = topPlayerDiv;
     player.hand.cards.forEach((card, index) => {
       nextPlayerDiv.append(
         index % 2 ? createCardNode(null, "Red") : createCardNode(null, "Black")
@@ -297,8 +307,6 @@ function createCardNode(card, cardBack) {
     cardNode.setAttribute("alt", `${card.rank} of ${card.suit}`);
     card.html = cardNode;
     cardNode.card = card;
-    //  alert("card.html " + card.html);
-    //  alert("cardNode.card " + cardNode.card);
   }
 
   return cardNode;

@@ -24,9 +24,11 @@ export default class Pile extends Deck {
     }
 
     Input_Is_An_Array_Of_Cards: {
-      let sequence = cards[0].rank != cards[cards.length - 1].rank;
+      let sequence = false;
       if (cards instanceof Array) {
         if (cards.length === 0) return;
+        if (cards.length > 1)
+          sequence = cards[0].rank != cards[cards.length - 1].rank;
         this.lastAddedIsSequence = sequence ? true : false;
         this.firstCardOfSequence = sequence ? cards[0] : undefined;
         cards.forEach((card) => this.cards.push(card));
