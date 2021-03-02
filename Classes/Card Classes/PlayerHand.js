@@ -15,6 +15,7 @@ export default class PlayerHand extends Deck {
    */
   remove(cards) {
     let removed = super.remove(cards);
+        
     removed.sort((a, b) => a.cardValue - b.cardValue);
     for (let card of cards) {
       card.cardValue = card.isJoker ? 0 : card.cardValue;
@@ -111,10 +112,7 @@ export default class PlayerHand extends Deck {
       if (cards instanceof Array) {
         if (cards.length === 0) return;
         for (let card of cards) {
-          if (card instanceof Card) {
-            //Validate o
             addCard.call(this, card);
-          }
         }
       }
     }

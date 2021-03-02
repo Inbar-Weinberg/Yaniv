@@ -16,5 +16,6 @@ export default class Card {
     else if (rank === "Q") this.cardValue = 12;
     else if (rank === "K") this.cardValue = 13;
     else this.cardValue = Number(rank);
+
   }
 }

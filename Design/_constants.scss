@@ -11,8 +11,6 @@ $fontColor: black;
   font-weight: 500;
 }
 
-
-
 @mixin input-fields {
   border-radius: 5px;
   background-color: lighten($gameBG, 60%);
@@ -40,5 +38,5 @@ $fontColor: black;
     position: relative;
     top: 1px;
   }
-
 }
+

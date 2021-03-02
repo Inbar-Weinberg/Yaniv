@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script type="module" src="index.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,7 +48,7 @@
 
                 <label for="cards-at-start">
                     Cards per round: </label>
-                <input type="number" id="cards-at-start" placeholder="Default is 5" min="2" max="10" value='2'>
+                <input type="number" id="cards-at-start" placeholder="Default is 5" min="2" max="10" value='5'>
             </div>
             <button type="submit" id='start-game-button'>
                 Lets Play
@@ -66,14 +67,16 @@
                 <button type="button" id='yaniv-button'>
                     Yaniv!
                 </button>
-                <div>Points on hand:</div>
-                <div>Points of marked cards:</div>
+                <button type="button" id='next-turn'>
+                    Next turn
+                </button>
+                <div class='points-on-hand'>Points on hand:</div>
+                <div class='points-of-marked'></div>
                 <button type="button" class='throw-button'>
-                    
+
                 </button>
             </div>
-            <div class="pile">
-            </div>
+            <div class="pile"></div>
         </div>
         <div class="side-player left">
 
@@ -82,6 +85,5 @@
         </div>
     </div>
 </body>
-<script type="module" src="./index.js"></script>
 
 </html>

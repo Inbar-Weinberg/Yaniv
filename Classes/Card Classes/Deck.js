@@ -5,7 +5,8 @@ export default class Deck {
   constructor() {
     this.cards = [];
     this.numberOfCards = this.cards.length;
-    this.updateNumberOfCard = function () { // only used internally in Deck Class
+    this.updateNumberOfCard = function () {
+      // only used internally in Deck Class
       this.numberOfCards = this.cards.length;
     };
   }
@@ -58,19 +59,16 @@ export default class Deck {
     }
     Input_Is_An_Array_Of_Cards: {
       if (cards instanceof Array) {
-        for (let i = 0; i < cards.length; i++) {
-          removeSingleCard.call(this, cards[i]);
-        }
+        cards.forEach((card) => removeSingleCard.call(this, card));
       }
     }
     this.updateNumberOfCard();
-
     return removed;
 
     function removeSingleCard(card) {
       const index = this.cards.indexOf(card);
       if (index >= 0) {
-        removed.push(this.cards.splice(index, 1));
+        removed.push(this.cards.splice(index, 1)[0]);
       }
     }
   }
@@ -86,7 +84,7 @@ export default class Deck {
       location =
         typeof location === "string" ? string.toLowerCase(location) : "top";
     }
-  
+
     Input_Is_Single_Card: {
       if (cards instanceof Card) {
         addCard.call(this, card);
@@ -120,5 +118,4 @@ export default class Deck {
   updateNumberOfCards() {
     this.numberOfCards = this.cards.length;
   }
- 
 }

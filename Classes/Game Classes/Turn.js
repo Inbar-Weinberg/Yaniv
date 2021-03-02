@@ -5,8 +5,7 @@ export default class Turn {
   }
 
 
-
   nextTurn() {
-    return new Turn(player.nextTurn);
+    return new Turn(this.player.nextPlayer);
   }
 }

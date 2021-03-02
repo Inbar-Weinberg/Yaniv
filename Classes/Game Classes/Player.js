@@ -7,7 +7,7 @@ export default class Player {
    */
   constructor(name = "John Doe", nextPlayer) {
     this.name = name;
-    this.nextPlayer = 
+    this.nextPlayer = nextPlayer;
     this.hand = new PlayerHand();
     this.score = 0;
   }

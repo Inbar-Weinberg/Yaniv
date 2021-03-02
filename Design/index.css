@@ -185,6 +185,10 @@
   display: none;
 }
 
+#playing-board .mid-field .controls #next-turn {
+  display: none;
+}
+
 #playing-board .mid-field .controls .throw-button {
   display: none;
   border-radius: 3px;
@@ -296,5 +300,9 @@ button:hover {
 button:active {
   position: relative;
   top: 1px;
+}
+
+[data-click-able="true"] {
+  cursor: pointer;
 }
 /*# sourceMappingURL=index.css.map */

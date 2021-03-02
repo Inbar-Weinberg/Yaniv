@@ -3,16 +3,19 @@
 @import "./playingBoard";
 @import "./constants";
 
-body{
-    @include baseline;
-    box-sizing: border-box;
-    height: 100vh;
-    margin:0;
-    padding: 8px;
+body {
+  @include baseline;
+  box-sizing: border-box;
+  height: 100vh;
+  margin: 0;
+  padding: 8px;
 }
-input{
-    @include input-fields;    
+input {
+  @include input-fields;
 }
-button{
-    @include buttons;
+button {
+  @include buttons;
+}
+[data-click-able="true"]{
+    cursor: pointer;
 }
