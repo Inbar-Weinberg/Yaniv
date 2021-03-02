@@ -67,17 +67,10 @@ function startNewRound(game) {
     });
     pile.add(gameDeck.remove("top"));
   }
-  init_pile_deck_graphics: {
-    if (!pile.html.firstChild) {
-      pile.html.append(createCardNode(pile.topCard));
-      gameDeck.topCardHtml = createCardNode(null, "black");
-      gameDeck.html.append(gameDeck.topCardHtml);
-    }
-  }
+
   let turn = round.newTurn();
   startNewTurn(turn);
 }
-
 function startNewTurn(turn) {
   let activePlayer = turn.player;
 
@@ -194,61 +187,126 @@ function startNewTurn(turn) {
     let nextButton = document.getElementById("next-turn");
     nextButton.style.display = "block";
     nextButton.addEventListener("click", callNextTurn, { once: false });
-    function callNextTurn(event) {
-      nextButton.removeEventListener("click", callNextTurn);
-      nextButton.style.display = "none";
-      newT = turn.nextTurn().nextTurn();
-      alert(newT.player.name);
-      startNewTurn(newT);
-    }
+  }
+
+  function callNextTurn(event) {
+    nextButton.removeEventListener("click", callNextTurn);
+    nextButton.style.display = "none";
+    newT = turn.nextTurn().nextTurn();
+    alert(newT.player.name);
+    startNewTurn(newT);
   }
 }
+let guiManager = {
+  topPlayerDiv: document.querySelector(".top-player"),
+  leftPlayerDiv: document.querySelector(".side-player.left"),
+  rightPlayerDiv: document.querySelector(".side-player.right"),
+  mainDiv: document.querySelector(".active-player"),
+  activePlayer: turn.player,
 
-function activateTurnGraphics(activePlayer) {
-  const topPlayerDiv = document.querySelector(".top-player");
-  const leftPlayerDiv = document.querySelector(".side-player.left");
-  const rightPlayerDiv = document.querySelector(".side-player.right");
-  const mainDiv = document.querySelector(".active-player");
-
-  deactivate_old_graphics: {
-    while (mainDiv.firstChild) {
-      mainDiv.removeChild(mainDiv.firstChild);
+  cleanUpGraphicsAfterTurn() {
+    deactivate_old_graphics: {
+      while (this.mainDiv.firstChild) {
+        this.mainDiv.firstChild.dataset.clickAble = "false";
+        alert(getEventListener(this.mainDiv));
+        this.mainDiv.removeChild(mainDiv.firstChild);
+      }
+      while (topPlayerDiv.firstChild) {
+        this.topPlayerDiv.removeChild(topPlayerDiv.firstChild);
+      }
+      while (leftPlayerDiv.firstChild) {
+        this.leftPlayerDiv.removeChild(leftPlayerDiv.firstChild);
+      }
+      while (rightPlayerDiv.firstChild) {
+        this.rightPlayerDiv.removeChild(rightPlayerDiv.firstChild);
+      }
     }
-    while (topPlayerDiv.firstChild) {
-      topPlayerDiv.removeChild(topPlayerDiv.firstChild);
-    }
-    while (leftPlayerDiv.firstChild) {
-      leftPlayerDiv.removeChild(leftPlayerDiv.firstChild);
-    }
-    while (rightPlayerDiv.firstChild) {
-      rightPlayerDiv.removeChild(rightPlayerDiv.firstChild);
-    }
-  }
-  player_hand_Graphics: {
-    activePlayer.hand.cards.forEach((card) => {
-      activePlayer.html.append(createCardNode(card));
+  },
+  pileDeckGraphics() {
+    pile.html.append(createCardNode(pile.topCard));
+  },
+  gameDeckGraphics() {
+    gameDeck.topCardHtml = createCardNode(null, "black");
+    gameDeck.html.append(gameDeck.topCardHtml);
+  },
+  activePlayerGraphics() {
+    this.activePlayer.hand.cards.forEach((card) => {
+      this.activePlayer.html.append(createCardNode(card));
       card.html.dataset.clickAble = "true";
     });
-
-    switch (
-      game.numberOfPlayers //set up non active players
-    ) {
+  },
+  nonActivePlayerGraphics() {
+    switch (game.numberOfPlayers) {
       case 2:
-        initTopDiv(activePlayer.nextPlayer);
+        initTopDiv(this.activePlayer.nextPlayer);
         break;
       case 3:
-        initLeftDiv(activePlayer.nextPlayer);
-        initRightDiv(activePlayer.nextPlayer.nextPlayer);
-
+        initLeftDiv(this.activePlayer.nextPlayer);
+        initRightDiv(this.activePlayer.nextPlayer.nextPlayer);
         break;
       case 4:
-        initLeftDiv(activePlayer.nextPlayer);
-        initTopDiv(activePlayer.nextPlayer.nextPlayer);
-        initRightDiv(activePlayer.nextPlayer.nextPlayer.nextPlayer);
+        initLeftDiv(this.activePlayer.nextPlayer);
+        initTopDiv(this.activePlayer.nextPlayer.nextPlayer);
+        initRightDiv(this.activePlayer.nextPlayer.nextPlayer.nextPlayer);
         break;
     }
-  }
 
+    function initTopDiv(player) {
+      let nextPlayerDiv = topPlayerDiv;
+      player.hand.cards.forEach((card, index) => {
+        nextPlayerDiv.append(
+          index % 2
+            ? createCardNode(null, "Red")
+            : createCardNode(null, "Black")
+        );
+      });
+    }
+
+    function initLeftDiv(player) {
+      let nextPlayerDiv = leftPlayerDiv;
+      player.hand.cards.forEach((card, index) => {
+        let cardNode =
+          index % 2
+            ? createCardNode(null, "Red")
+            : createCardNode(null, "Black");
+        nextPlayerDiv.append(cardNode);
+        cardNode.style.transform = `rotate(90deg) scale(6) translateX(${
+          4 * index
+        }px) `;
+      });
+    }
+
+    function initRightDiv(player) {
+      let nextPlayerDiv = rightPlayerDiv;
+      player.nextPlayer.hand.cards.forEach((card, index) => {
+        let cardNode =
+          index % 2
+            ? createCardNode(null, "Red")
+            : createCardNode(null, "Black");
+        nextPlayerDiv.append(cardNode);
+        cardNode.style.transform = `rotate(90deg) scale(6) translateX(${
+          4 * index
+        }px) `;
+      });
+    }
+  },
+  createCardNode(card, cardBack) {
+    let cardNode = document.createElement("img");
+    if (cardBack) {
+      cardNode.setAttribute("src", `./Card Images/Back/${cardBack}.svg`);
+      cardNode.setAttribute("alt", `${cardBack} back of card`);
+    } else {
+      cardNode.setAttribute("src", card.pictureSrc);
+      cardNode.setAttribute("alt", `${card.rank} of ${card.suit}`);
+      card.html = cardNode;
+      cardNode.card = card;
+    }
+    return cardNode;
+  },
+};
+
+/*
+{
   yaniv_button: {
     yanivButton = document.getElementById("yaniv-button");
     if (activePlayer.canCallYaniv()) {
@@ -262,52 +320,4 @@ function activateTurnGraphics(activePlayer) {
       }
     }
   }
-
-  function initTopDiv(player) {
-    let nextPlayerDiv = topPlayerDiv;
-    player.hand.cards.forEach((card, index) => {
-      nextPlayerDiv.append(
-        index % 2 ? createCardNode(null, "Red") : createCardNode(null, "Black")
-      );
-    });
-  }
-
-  function initLeftDiv(player) {
-    let nextPlayerDiv = leftPlayerDiv;
-    player.hand.cards.forEach((card, index) => {
-      let cardNode =
-        index % 2 ? createCardNode(null, "Red") : createCardNode(null, "Black");
-      nextPlayerDiv.append(cardNode);
-      cardNode.style.transform = `rotate(90deg) scale(6) translateX(${
-        4 * index
-      }px) `;
-    });
-  }
-
-  function initRightDiv(player) {
-    let nextPlayerDiv = rightPlayerDiv;
-    player.nextPlayer.hand.cards.forEach((card, index) => {
-      let cardNode =
-        index % 2 ? createCardNode(null, "Red") : createCardNode(null, "Black");
-      nextPlayerDiv.append(cardNode);
-      cardNode.style.transform = `rotate(90deg) scale(6) translateX(${
-        4 * index
-      }px) `;
-    });
-  }
-}
-function createCardNode(card, cardBack) {
-  let cardNode = document.createElement("img");
-
-  if (cardBack) {
-    cardNode.setAttribute("src", `./Card Images/Back/${cardBack}.svg`);
-    cardNode.setAttribute("alt", `${cardBack} back of card`);
-  } else {
-    cardNode.setAttribute("src", card.pictureSrc);
-    cardNode.setAttribute("alt", `${card.rank} of ${card.suit}`);
-    card.html = cardNode;
-    cardNode.card = card;
-  }
-
-  return cardNode;
-}
+}*/
