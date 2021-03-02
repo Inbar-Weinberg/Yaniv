@@ -78,8 +78,8 @@ function startNewRound(game) {
 }
 
 function startNewTurn(turn) {
-  let activePlayer = turn.player;
-  alert(activePlayer.name);
+  activePlayer = turn.player;
+  alert( activePlayer.html)
   activePlayer.html = document.querySelector(".active-player");
 
   activateTurnGraphics();
